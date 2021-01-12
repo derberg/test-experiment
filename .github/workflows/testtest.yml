@@ -13,7 +13,8 @@ jobs:
       - name: set
         run: echo "TEST=dupa" >> $GITHUB_ENV
   main:
-    name: Follow Conventional Commits
+    needs: pre-step
+    name: grr
     runs-on: ubuntu-latest
     steps:
       - run: echo ${TEST}
