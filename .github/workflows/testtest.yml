@@ -7,13 +7,14 @@ on:
 
 jobs:
   pre-step:
-    if: contains(github.event.issue.repository.topics, 'nodejs')
+    #if: contains(github.event.issue.repository.topics, 'nodejs')
     name: set some env
     runs-on: ubuntu-latest
     steps:
       - name: set
-        run: echo "TEST=dupa" >> $GITHUB_ENV
-      - run: echo ${{env.TEST}}
+        run: echo ${{github.event.issue.repository.topics}}
+      - name: go
+        run: echo ${{github.event.issue.repository}}
   main:
     needs: pre-step
     name: grr
