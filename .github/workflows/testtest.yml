@@ -11,17 +11,12 @@ jobs:
     name: set some env
     runs-on: ubuntu-latest
     steps:
-      - name: output
-        run: echo "::set-output name=exists::false"
       - name: set
         run: echo ${{github.event.repository.topics}}
       - name: go
         run: echo ${{github.event.repository}}
   main:
-    needs: 
-      pre-step:
-        outputs:
-          exists: "true"
+    needs: pre-step
     name: grr
     runs-on: ubuntu-latest
     steps:
