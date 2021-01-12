@@ -12,6 +12,7 @@ jobs:
     steps:
       - name: set
         run: echo "TEST=dupa" >> $GITHUB_ENV
+      - run: echo ${{env.TEST}}
   main:
     needs: pre-step
     name: grr
