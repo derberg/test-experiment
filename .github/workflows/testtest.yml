@@ -17,4 +17,4 @@ jobs:
     name: grr
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${TEST}
+      - run: echo ${{env.TEST}}
