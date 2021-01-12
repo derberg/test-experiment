@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: output
-        run: echo ::set-output name=exists::false
+        run: echo "::set-output name=exists::false"
       - name: set
         run: echo ${{github.event.repository.topics}}
       - name: go
@@ -21,7 +21,7 @@ jobs:
     needs: 
       pre-step:
         outputs:
-          exists: true
+          exists: "true"
     name: grr
     runs-on: ubuntu-latest
     steps:
