@@ -1,25 +1,35 @@
-name: "Lint PR Title"
+name: PR testing if Node project
 
 on:
-  issues:
-    types:
-            - opened
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
 
 jobs:
-  pre-step:
-    #if: contains(github.event.issue.repository.topics, 'nodejs')
-    name: set some env
-    runs-on: ubuntu-latest
+  test:
+    if: github.event.pull_request.draft == false
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
-      - name: set
-        run: echo ${{github.event.repository.topics}}
-      - name: go
-        run: echo ${{github.event.repository}}
-      - name: sro
-        run: echo ${{github.event.repository.name}}
-  main:
-    needs: pre-step
-    name: grr
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "dupa"
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Check if Node.js project and has package.json
+        id: packagejson
+        run: test -e ./package.json && "echo ::set-output name=exists::true" || echo "::set-output name=exists::false"
+        shell: bash
+      - if: steps.packagejson.outputs.exists == 'true'
+        name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - if: steps.packagejson.outputs.exists == 'true'
+        name: Install dependencies
+        run: npm ci
+      - if: steps.packagejson.outputs.exists == 'true'
+        name: Test
+        run: npm test
+      - if: steps.packagejson.outputs.exists == 'true'
+        name: Run linter
+        run: npm run lint
