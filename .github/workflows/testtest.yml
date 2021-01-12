@@ -16,4 +16,4 @@ jobs:
     name: Follow Conventional Commits
     runs-on: ubuntu-latest
     steps:
-      - run: echo $GITHUB_ENV
+      - run: echo ${TEST}
