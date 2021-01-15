@@ -1,49 +1,43 @@
-#This action is centrally managed in https://github.com/asyncapi/.github/
-#Don't make changes to this file in this repo as they will be overwritten with changes made to the same file in above mentioned repo
-name: Notify slack
+name: "Lint PR"
 
 on:
-
-  issues:
-    types: [opened, reopened]
-
   pull_request_target:
-    types: [opened, reopened, synchronize, ready_for_review]
+    types:
+      - opened
+      - edited
+      - synchronize
 
 jobs:
-
-    issue:
-      if: github.event_name == 'issues' && github.actor != 'asyncapi-bot' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
-      name: On every new issue
-      runs-on: ubuntu-latest
-      steps:
-        - name: Convert markdown to slack markdown for issue
-          uses: LoveToKnow/slackify-markdown-action@v1.0.0
-          id: issuemarkdown
-          with:
-            text: "[${{github.event.issue.title}}](${{github.event.issue.html_url}}) \n ${{github.event.issue.body}}"
-        - name: Send info about issue
-          uses: rtCamp/action-slack-notify@v2
-          env:
-            SLACK_WEBHOOK: ${{secrets.SLACK_GITHUB_NEWISSUEPR}}
-            SLACK_TITLE: 🐛 New Issue 🐛
-            SLACK_MESSAGE: ${{steps.issuemarkdown.outputs.text}}
-            MSG_MINIMAL: true
-
-    pull_request:
-      if: github.event_name == 'pull_request_target' && github.actor != 'asyncapi-bot' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
-      name: On every new pull request
-      runs-on: ubuntu-latest
-      steps:
-        - name: Convert markdown to slack markdown for pull request
-          uses: LoveToKnow/slackify-markdown-action@v1.0.0
-          id: prmarkdown
-          with:
-            text: "[${{github.event.pull_request.title}}](${{github.event.pull_request.html_url}}) \n ${{github.event.pull_request.body}}"
-        - name: Send info about pull request
-          uses: rtCamp/action-slack-notify@v2
-          env:
-            SLACK_WEBHOOK: ${{secrets.SLACK_GITHUB_NEWISSUEPR}}
-            SLACK_TITLE: 💪 New Pull Request 💪
-            SLACK_MESSAGE: ${{steps.prmarkdown.outputs.text}}
-            MSG_MINIMAL: true
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: derberg/action-semantic-pull-request@835d3f7d4685a0d1e22a537b2dc00a4bfc7c3c71
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Optionally, you can provide options for further constraints.
+        with:
+          # Configure which types are allowed.
+          # Default: https://github.com/commitizen/conventional-commit-types
+          types: |
+            fix
+            feat
+          # Configure which scopes are allowed.
+          scopes: |
+            core
+            ui
+          # Configure that a scope must always be provided.
+          requireScope: true
+          # Configure additional validation for the subject based on a regex.
+          # This example ensures the subject doesn't start with an uppercase character.
+          subjectPattern: ^(?![A-Z]).+$
+          # Configure custom error message that should be passed to the logs to better describe the error thrown by subject pattern validation.
+          subjectPatternError: |
+            The subject found in the pull request title didn't match the configured pattern.
+            Please ensure that the subject doesn't start with an uppercase character.
+          # For work-in-progress PRs you can typically use draft pull requests 
+          # from Github. However, private repositories on the free plan don't have 
+          # this option and therefore this action allows you to opt-in to using the 
+          # special "[WIP]" prefix to indicate this state. This will avoid the 
+          # validation of the PR title and the pull request checks remain pending.
+          # Note that a second check will be reported if this is enabled.
+          wip: true
