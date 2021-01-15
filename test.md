@@ -1,4 +1,4 @@
-# Streetlights API 1.0.0 documentation
+
 
 The Smartylighting Streetlights API allows you to remotely manage the city lights.
 
