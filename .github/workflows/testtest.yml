@@ -11,7 +11,7 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - uses: derberg/action-semantic-pull-request@d6cf96e83068aeca8411b2983e78e3cacf63ea0f
+      - uses: derberg/action-semantic-pull-request@27b973b0646f881b523b53d552569a0a98a6db23
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # Optionally, you can provide options for further constraints.
@@ -32,7 +32,7 @@ jobs:
           subjectPattern: ^(?![A-Z]).+$
           # Configure custom error message that should be passed to the logs to better describe the error thrown by subject pattern validation.
           subjectPatternError: |
-            The subject found in the pull request title didn't match the configured pattern.
+            The subject "${subject}" found in the pull request title "${title}" didn't match the configured pattern.
             Please ensure that the subject doesn't start with an uppercase character.
           # For work-in-progress PRs you can typically use draft pull requests 
           # from Github. However, private repositories on the free plan don't have 
