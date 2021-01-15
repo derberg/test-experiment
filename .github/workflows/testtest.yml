@@ -31,7 +31,7 @@ jobs:
             MSG_MINIMAL: true
 
     pull_request:
-      if: github.event_name == 'pull_request' && github.actor != 'asyncapi-bot' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
+      if: github.event_name == 'pull_request_target' && github.actor != 'asyncapi-bot' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
       name: On every new pull request
       runs-on: ubuntu-latest
       steps:
