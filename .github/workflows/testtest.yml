@@ -11,7 +11,7 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - uses: derberg/action-semantic-pull-request@610507dcb44f2b7f127f6de6cc26c5bcbf296211
+      - uses: derberg/action-semantic-pull-request@eec52656eb99b79664ee4bcf12b74ec5fff8146b
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # Optionally, you can provide options for further constraints.
