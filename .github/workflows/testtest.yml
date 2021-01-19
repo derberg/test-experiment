@@ -45,7 +45,7 @@ jobs:
               //The thing is that handling multiple PRs will increase a complexity in this PR that in my opinion we should avoid
               //The other PRs will be reported the next day the action runs, or person that checks first url will notice the other ones
               core.setOutput('url', orphans[0].url);
-              core.setOutput('title', orphans[0].url);
+              core.setOutput('title', orphans[0].title);
             }
       - if: steps.orphans.outputs.found == 'true'
         name: Convert markdown to slack markdown
