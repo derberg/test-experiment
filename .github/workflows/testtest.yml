@@ -3,8 +3,8 @@
 name: 'Notify on failing automerge'
 
 on:
-  schedule:
-  - cron: "* * * * *"
+  push:
+    branches: [ master ]
 
 jobs:
   identify-orphans:
