@@ -12,8 +12,10 @@ jobs:
     lint:
       runs-on: ubuntu-latest
       steps:
-      - uses: amannn/action-semantic-pull-request@v3.2.3
+      - uses: derberg/action-semantic-pull-request@7c2af745fb49cbb8e621a646ff7fe408f2f57f52
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           subjectPattern: ^(?![A-Z]).+$
+          subjectPatternError: |
+            The subject "{subject}" found in the pull request title "{title}" should start with an lowercase character.
