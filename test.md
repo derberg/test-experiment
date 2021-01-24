@@ -20,7 +20,7 @@ The Smartylighting Streetlights API allows you to remotely manage the city light
 <table>
   <thead>
     <tr>
-      <th>URL</th>
+      <th>URL</th>wefwefwerwer
       <th>Protocol</th>
       <th>Description</th>
     </tr>
