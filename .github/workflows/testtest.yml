@@ -1,21 +1,28 @@
-#This action is centrally managed in https://github.com/asyncapi/.github/
-#Don't make changes to this file in this repo as they will be overwritten with changes made to the same file in above mentioned repo
-name: Lint PR title
+name: PR testing
 
 on:
-
-  pull_request_target:
-    types: [opened, reopened, synchronize, edited, ready_for_review]
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
 
 jobs:
-
-    lint:
-      runs-on: ubuntu-latest
-      steps:
-      - uses: derberg/action-semantic-pull-request@7ca500125d5f63bc8f1472472e421a68038ccd78
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  test:
+    if: github.event.pull_request.draft == false #to not run the check if the PR is a draft
+    name: Testing on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: [ '10', '14', '15' ] #for now versions must be hardcoded as aliases like lts or latest are not yet supported by setup-node action https://github.com/actions/setup-node/issues/26
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v1
         with:
-          subjectPattern: ^(?![A-Z]).+$
-          subjectPatternError: |
-            The subject "{subject}" found in the pull request title "{title}" should start with an lowercase character.
+          node-version: ${{ matrix.node }}
+      - name: Install dependencies
+        run: npm install
+      - name: Run test
+        run: npm test
+      - name: Run linter
+        run: npm run lint 
