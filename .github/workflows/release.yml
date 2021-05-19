@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
       - name: Add plugin for conventional commits
-        run: npm install conventional-changelog-conventionalcommits -g
+        run: npm install conventional-changelog-conventionalcommits
       - name: Release to GitHub
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
