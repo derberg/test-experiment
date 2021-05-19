@@ -18,7 +18,6 @@ jobs:
       - name: Add plugin for conventional commits
         run: npm install conventional-changelog-conventionalcommits -g
       - name: Release to GitHub
-        working-directory: ./.github/workflows
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           GIT_AUTHOR_NAME: asyncapi-bot
