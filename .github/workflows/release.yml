@@ -6,7 +6,7 @@ on:
       - master
       - '**-release'
  
-jobs:
+jobs: 
   release:
     name: 'Release to GitHub' 
     runs-on: ubuntu-latest
