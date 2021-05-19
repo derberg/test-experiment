@@ -5,10 +5,10 @@ name: Version bump - if Node.js project
 
 on: [release]
 
-jobs:
+jobs:  
   version_bump:
     name: Generate assets and bump
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        run: echo ${{ github.event.release.target_commitish }} ${{ github.event.release.type }} ${{ github.event.release.action }} ${{ github.event.action }}
+        run: echo ${{ github.event.release.target_commitish }} ? ${{ github.event.release.type }} / ${{ github.event.release.action }} ] ${{ github.event.action }}
