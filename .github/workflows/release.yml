@@ -5,7 +5,7 @@ on:
     branches:
       - master
       - '**-release'
-
+ 
 jobs:
   release:
     name: 'Release to GitHub' 
