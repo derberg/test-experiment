@@ -17,7 +17,6 @@ jobs:
         uses: actions/setup-node@v1
       - name: Add plugin for conventional commits
         run: npm install conventional-changelog-conventionalcommits -g
-        working-directory: ./.github/workflows
       - name: Release to GitHub
         working-directory: ./.github/workflows
         env:
@@ -26,4 +25,4 @@ jobs:
           GIT_AUTHOR_EMAIL: info@asyncapi.io
           GIT_COMMITTER_NAME: asyncapi-bot
           GIT_COMMITTER_EMAIL: info@asyncapi.io
-        run: npx semantic-release
+        run: npx semantic-release@17.4.3
