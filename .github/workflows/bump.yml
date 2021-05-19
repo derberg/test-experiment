@@ -6,7 +6,7 @@ name: Version bump - if Node.js project
 on: 
   release:
     types: 
-      - published
+      - published 
 
 jobs:
   version_bump:
