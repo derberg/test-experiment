@@ -8,7 +8,7 @@ on:
     types: 
       - published 
 
-jobs:
+jobs:  
   version_bump:
     name: Generate assets and bump
     runs-on: ubuntu-latest
