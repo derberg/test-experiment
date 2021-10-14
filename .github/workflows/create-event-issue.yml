@@ -38,7 +38,7 @@ jobs:
   setup-community-first-meeting:
     name: Setup Community-first meeting
     runs-on: ubuntu-latest
-    if: github.event.inputs == 'contributor_first'
+    if: github.event.inputs.type == 'contributor_first'
     steps:
       - name: Create issue content
         id: content
