@@ -21,7 +21,7 @@ jobs:
   setup-sig-meeting:
     name: Setup SIG meeting
     runs-on: ubuntu-latest
-    if: github.event.inputs == 'sig'
+    if: github.event.inputs.type == 'sig'
     steps:
       - name: Create issue content
         id: content
