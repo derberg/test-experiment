@@ -46,7 +46,7 @@ jobs:
         with:
           result-encoding: string
           script: |
-            const getMeetingIssueContent = require('./sig.js');
+            const getMeetingIssueContent = require('./community-first.js');
             
             return getMeetingIssueContent(${{ github.event.inputs.time }}, ${{ github.event.inputs.everytimezone }})
       - name: Create issue with meeting details
