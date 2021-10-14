@@ -1,0 +1,53 @@
+name: Create community event issue
+
+on:
+  workflow_dispatch:
+    inputs:
+      time:
+        description: 'Info about meeting hour in UTC time zone, like: 8AM'
+        required: true
+      everytimezone:
+        description: 'Link that points to specific time when meeting happens so others can translate it to their time zones, like: https://everytimezone.com/s/182f3172'
+        required: true
+      date:
+        description: 'Date in a form like: Tuesday October 26 2021'
+        required: true
+      type:
+        description: 'Is it "sig" or "contributor_first" meeting'
+        required: true
+
+jobs:
+
+  setup-sig-meeting:
+    name: Setup SIG meeting
+    runs-on: ubuntu-latest
+    if: github.event.inputs == 'sig'
+    steps:
+      - name: Create issue content
+        id: content
+        uses: actions/github-script@v4
+        with:
+          result-encoding: string
+          script: |
+            const getMeetingIssueContent = require('./sig.js');
+            
+            return getMeetingIssueContent(${{ github.event.inputs.time }}, ${{ github.event.inputs.everytimezone }})
+      - name: Create issue with meeting details
+        run: gh issue create -l meeting -t "AsyncAPI open meeting, {{ github.event.inputs.time }} {{ github.event.inputs.time }} UTC" -b ${{steps.content.outputs.result}}
+
+  setup-community-first-meeting:
+    name: Setup Community-first meeting
+    runs-on: ubuntu-latest
+    if: github.event.inputs == 'contributor_first'
+    steps:
+      - name: Create issue content
+        id: content
+        uses: actions/github-script@v4
+        with:
+          result-encoding: string
+          script: |
+            const getMeetingIssueContent = require('./sig.js');
+            
+            return getMeetingIssueContent(${{ github.event.inputs.time }}, ${{ github.event.inputs.everytimezone }})
+      - name: Create issue with meeting details
+        run: gh issue create -l meeting -t "AsyncAPI Contributor-first meeting, {{ github.event.inputs.time }} {{ github.event.inputs.time }} UTC" -b ${{steps.content.outputs.result}}
