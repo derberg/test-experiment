@@ -33,7 +33,7 @@ jobs:
           script: |
             const { getMeetingIssueContent } = require('./.github/workflows/event_issue_templates/sig.js');
             
-            return getMeetingIssueContent(${{ github.event.inputs.time }}, ${{ github.event.inputs.everytimezone }})
+            return getMeetingIssueContent('${{ github.event.inputs.time }}', '${{ github.event.inputs.everytimezone }}');
       - name: Create issue with meeting details
         run: gh issue create -l meeting -t "AsyncAPI open meeting, ${{ github.event.inputs.time }} ${{ github.event.inputs.time }} UTC" -b ${{steps.content.outputs.result}}
 
@@ -52,6 +52,6 @@ jobs:
           script: |
             const { getMeetingIssueContent } = require('./.github/workflows/event_issue_templates/contributor-first.js');
             
-            return getMeetingIssueContent(${{ github.event.inputs.time }}, ${{ github.event.inputs.everytimezone }})
+            return getMeetingIssueContent('${{ github.event.inputs.time }}', '${{ github.event.inputs.everytimezone }}');
       - name: Create issue with meeting details
         run: gh issue create -l meeting -t "AsyncAPI Contributor-first meeting, ${{ github.event.inputs.time }} ${{ github.event.inputs.time }} UTC" -b ${{steps.content.outputs.result}}
