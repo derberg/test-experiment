@@ -19,6 +19,8 @@ on:
 jobs:
 
   setup-sig-meeting:
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     name: Setup SIG meeting
     runs-on: ubuntu-latest
     if: github.event.inputs.type == 'sig'
@@ -39,6 +41,8 @@ jobs:
         run: gh issue create -l meeting -t "AsyncAPI Contributor-first meeting, ${{ github.event.inputs.time }} ${{ github.event.inputs.time }} UTC" -F content.md
 
   setup-contributor-first-meeting:
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     name: Setup Community-first meeting
     runs-on: ubuntu-latest
     if: github.event.inputs.type == 'contributor_first'
