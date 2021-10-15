@@ -23,13 +23,15 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.inputs.type == 'sig'
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - name: Create issue content
         id: content
         uses: actions/github-script@v4
         with:
           result-encoding: string
           script: |
-            const { getMeetingIssueContent } = require('./.github/workflows/event_issue_templates/sig.js');
+            const { getMeetingIssueContent } = require('./event_issue_templates/sig.js');
             
             return getMeetingIssueContent(${{ github.event.inputs.time }}, ${{ github.event.inputs.everytimezone }})
       - name: Create issue with meeting details
@@ -40,13 +42,15 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.inputs.type == 'contributor_first'
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - name: Create issue content
         id: content
         uses: actions/github-script@v4
         with:
           result-encoding: string
           script: |
-            const { getMeetingIssueContent } = require('./.github/workflows/event_issue_templates/contributor-first.js');
+            const { getMeetingIssueContent } = require('./event_issue_templates/contributor-first.js');
             
             return getMeetingIssueContent(${{ github.event.inputs.time }}, ${{ github.event.inputs.everytimezone }})
       - name: Create issue with meeting details
