@@ -29,13 +29,13 @@ jobs:
         with:
           result-encoding: string
           script: |
-            const getMeetingIssueContent = require('../../event_issue_templates/sig.js');
+            const { getMeetingIssueContent } = require('./event_issue_templates/sig.js');
             
             return getMeetingIssueContent(${{ github.event.inputs.time }}, ${{ github.event.inputs.everytimezone }})
       - name: Create issue with meeting details
-        run: gh issue create -l meeting -t "AsyncAPI open meeting, {{ github.event.inputs.time }} {{ github.event.inputs.time }} UTC" -b ${{steps.content.outputs.result}}
+        run: gh issue create -l meeting -t "AsyncAPI open meeting, ${{ github.event.inputs.time }} ${{ github.event.inputs.time }} UTC" -b ${{steps.content.outputs.result}}
 
-  setup-community-first-meeting:
+  setup-contributor-first-meeting:
     name: Setup Community-first meeting
     runs-on: ubuntu-latest
     if: github.event.inputs.type == 'contributor_first'
@@ -46,8 +46,8 @@ jobs:
         with:
           result-encoding: string
           script: |
-            const getMeetingIssueContent = require('../../event_issue_templates/community-first.js');
+            const { getMeetingIssueContent } = require('./event_issue_templates/contributor-first.js');
             
             return getMeetingIssueContent(${{ github.event.inputs.time }}, ${{ github.event.inputs.everytimezone }})
       - name: Create issue with meeting details
-        run: gh issue create -l meeting -t "AsyncAPI Contributor-first meeting, {{ github.event.inputs.time }} {{ github.event.inputs.time }} UTC" -b ${{steps.content.outputs.result}}
+        run: gh issue create -l meeting -t "AsyncAPI Contributor-first meeting, ${{ github.event.inputs.time }} ${{ github.event.inputs.time }} UTC" -b ${{steps.content.outputs.result}}
