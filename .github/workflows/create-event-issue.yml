@@ -20,7 +20,7 @@ jobs:
 
   setup-sig-meeting:
     env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     name: Setup SIG meeting
     runs-on: ubuntu-latest
     if: github.event.inputs.type == 'sig'
@@ -38,11 +38,11 @@ jobs:
 
             writeFileSync('content.md', issueContent, { encoding: 'utf8'});
       - name: Create issue with meeting details
-        run: gh issue create -l meeting -t "AsyncAPI Contributor-first meeting, ${{ github.event.inputs.time }} ${{ github.event.inputs.time }} UTC" -F content.md
+        run: gh issue create -l meeting -t "AsyncAPI Contributor-first meeting, ${{ github.event.inputs.date }} ${{ github.event.inputs.time }} UTC" -F content.md
 
   setup-contributor-first-meeting:
     env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     name: Setup Community-first meeting
     runs-on: ubuntu-latest
     if: github.event.inputs.type == 'contributor_first'
@@ -60,4 +60,4 @@ jobs:
 
             writeFileSync('content.md', issueContent, { encoding: 'utf8'});
       - name: Create issue with meeting details
-        run: gh issue create -l meeting -t "AsyncAPI Contributor-first meeting, ${{ github.event.inputs.time }} ${{ github.event.inputs.time }} UTC" -F content.md
+        run: gh issue create -l meeting -t "AsyncAPI Contributor-first meeting, ${{ github.event.inputs.date }} ${{ github.event.inputs.time }} UTC" -F content.md
