@@ -13,7 +13,7 @@ jobs:
         with:
           script: |
             const commentBody1 = context.payload;
-            const commentBody1 = context.payload.comment.body;
+            const commentBody2 = context.payload.comment.body;
             
             console.log('commentBody1', commentBody1);
             console.log('commentBody2', commentBody2);
