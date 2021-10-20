@@ -13,7 +13,7 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
-            console.log({{ github.event.issue.pull_request }})
+            console.log({{ github.event }})
   #    - name: Add label
    #     if: contains( ${{ context.payload.comment.body }}, '/ready-to-merge') || contains( ${{ context.payload.comment.body }}, '/rtm') 
     #    uses: buildsville/add-remove-label@v1
