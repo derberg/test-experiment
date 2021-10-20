@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Parse comment1
-        run: echo ${{ fromJson(github.event) }}
+        run: echo ${{ github.event.issue.body }}
       - name: Parse comment2
         run: echo ${{ github.event.issue_comment }}
   #    - name: Add label
