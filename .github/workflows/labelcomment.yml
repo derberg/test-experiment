@@ -13,11 +13,11 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
-            console.log(github.event.pull_request)
-      - name: Add label
-        if: contains( ${{ context.payload.comment.body }}, '/ready-to-merge') || contains( ${{ context.payload.comment.body }}, '/rtm') 
-        uses: buildsville/add-remove-label@v1
-        with:
-          token: ${{secrets.GITHUB_TOKEN}}
-          label: ready-to-merge
-          type: add
+            console.log({{ github.event.issue.pull_request }})
+  #    - name: Add label
+   #     if: contains( ${{ context.payload.comment.body }}, '/ready-to-merge') || contains( ${{ context.payload.comment.body }}, '/rtm') 
+    #    uses: buildsville/add-remove-label@v1
+     #   with:
+      #    token: ${{secrets.GITHUB_TOKEN}}
+       #   label: ready-to-merge
+        #  type: add
