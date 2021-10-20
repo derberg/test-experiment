@@ -12,13 +12,13 @@ jobs:
         id: comment-parse
         uses: actions/github-script@v5
         with:
-          result-encoding: boolean
+          result-encoding: string # boolean not allowed/supported, only json
           script: |
             const commentBody = context.payload.comment.body;
             
-            if(commentBody === '/ready-to-merge') return true
+            if(commentBody === '/ready-to-merge') return 'true'
       - name: Add label
-        if: ${{ steps.comment-parse.outputs.result }} == true
+        if: ${{ steps.comment-parse.outputs.result }} == 'true'
         uses: buildsville/add-remove-label@v1
         with:
           token: ${{secrets.GITHUB_TOKEN}}
