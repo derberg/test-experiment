@@ -1,0 +1,29 @@
+name: Add ready-to-merge label # if proper comment added
+
+on:
+  pull_request_review_comment:
+    types:
+      - created
+      - edited
+
+jobs:
+
+  automerge:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Parse comment
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const commentBody1 = context.payload
+            const commentBody1 = context.payload.body
+            
+            console.log('commentBody1', commentBody1)
+            console.log('commentBody2', commentBody2)
+      - name: Add label
+        uses: buildsville/add-remove-label@v1
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          label: ready-to-merge
+          type: add
