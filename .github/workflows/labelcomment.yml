@@ -9,9 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Parse comment1
-        run: echo ${{ github.event.issue.body }}
+        run: echo ${{ github.event.issue.pull_request }}
       - name: Parse comment2
-        run: echo ${{ github.event.issue_comment }}
+        run: echo ${{ github.event.pull_request.draft }}
+      - name: Parse comment3
+        run: echo ${{ github.event.issue.state }}
+      - name: Parse comment4
+        run: echo ${{ github.event.issue.draft }}
+      - name: Parse comment5
+        run: echo ${{ github.event.issue_comment.body }}
   #    - name: Add label
    #     if: contains( ${{ context.payload.comment.body }}, '/ready-to-merge') || contains( ${{ context.payload.comment.body }}, '/rtm') 
     #    uses: buildsville/add-remove-label@v1
