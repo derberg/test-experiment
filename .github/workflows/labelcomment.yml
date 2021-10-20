@@ -4,7 +4,7 @@ on: issue_comment
 
 jobs:
 
-  automerge:
+  parse-comment-and-add-label:
     if: github.event.pull_request.draft == false && ${{ github.event.issue.pull_request }}
     runs-on: ubuntu-latest
     steps:
@@ -15,7 +15,7 @@ jobs:
           script: |
             const commentBody = context.payload.comment.body;
             
-            if(contentBody === '/ready-to-merge') return true
+            if(commentBody === '/ready-to-merge') return true
       - name: Add label
         if: ${{ steps.comment-parse.outputs.result }} == 'true'
         uses: buildsville/add-remove-label@v1
