@@ -15,7 +15,7 @@ jobs:
           result-encoding: string # boolean not allowed/supported, only json
           script: |
             const commentBody = context.payload.comment.body;
-            
+            console.log(commentBody, commentBody === '/ready-to-merge')
             if(commentBody === '/ready-to-merge') return 'true'
       - name: Add label
         if: ${{ steps.comment-parse.outputs.result }} == 'true'
