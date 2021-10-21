@@ -5,19 +5,13 @@ on: issue_comment
 jobs:
 
   parse-comment-and-add-label:
-    if: github.event.pull_request.draft == false && ${{ github.event.issue.pull_request }}
+    if: ${{ github.event.issue.pull_request }} && ${{ github.event.issue.state }} != 'closed'
     runs-on: ubuntu-latest
     steps:
-      - name: Parse comment1
-        run: echo ${{ github.event.issue.pull_request }}
-      - name: Parse comment3
-        run: echo ${{ github.event.issue.state }} #this one is good
-      - name: Parse comment5
-        run: echo ${{ github.event.comment.body }}
-  #    - name: Add label
-   #     if: contains( ${{ context.payload.comment.body }}, '/ready-to-merge') || contains( ${{ context.payload.comment.body }}, '/rtm') 
-    #    uses: buildsville/add-remove-label@v1
-     #   with:
-      #    token: ${{secrets.GITHUB_TOKEN}}
-       #   label: ready-to-merge
-        #  type: add
+      - name: Add label
+        if: contains( ${{ github.event.comment.body }}, '/ready-to-merge') || contains( ${{ github.event.comment.body }}, '/rtm') 
+        uses: buildsville/add-remove-label@v1
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          label: ready-to-merge
+          type: add
