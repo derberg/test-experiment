@@ -5,13 +5,13 @@ on: issue_comment
 jobs:
 
   parse-comment-and-add-label:
-    if: ${{ github.event.issue.pull_request }} && ${{ !startsWith(github.event.issue.state, 'closed') }}
+    if: github.event.issue.pull_request && !startsWith(github.event.issue.state, 'closed')
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{github.event.comment.body}}
       - run: echo ${{ contains(github.event.comment.body, '/ready-to-merge') }}
       - name: Add label
-        if: ${{ contains(github.event.comment.body, '/ready-to-merge') }} || ${{ contains(github.event.comment.body, '/rtm' ) }} 
+        if: contains(github.event.comment.body, '/ready-to-merge') || contains(github.event.comment.body, '/rtm' )
         uses: actions/github-script@v5
         with:
           github-token: ${{ secrets.GH_TOKEN }}
