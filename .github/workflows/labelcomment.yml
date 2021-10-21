@@ -5,7 +5,7 @@ on: issue_comment
 jobs:
 
   parse-comment-and-add-label:
-    if: ${{ github.event.issue.pull_request }} && ${{ github.event.issue.state != 'closed' }}
+    if: ${{ github.event.issue.pull_request }} && ${{ !startsWith(github.event.issue.state, 'closed') }}
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ toJSON(github.event) }}
