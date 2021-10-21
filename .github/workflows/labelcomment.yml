@@ -1,0 +1,22 @@
+name: Add ready-to-merge label # if proper comment added
+
+on: issue_comment
+
+jobs:
+
+  parse-comment-and-add-label:
+    if: github.event.issue.pull_request && github.event.issue.state != 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add label
+        if: contains(github.event.comment.body, '/ready-to-merge') || contains(github.event.comment.body, '/rtm' )
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GH_TOKEN }}
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['ready-to-merge']
+            })

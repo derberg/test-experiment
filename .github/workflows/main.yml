@@ -20,11 +20,11 @@ jobs:
 
     #In case all defaults are fine for you, just add such step
     - name: Generating Markdown from my AsyncAPI document
-      uses: derberg/github-action-for-generator@4389353adaedf4dc8f69422a9466717a1100a138
+      uses: derberg/github-action-for-generator@0409191c21f902c78418d2ea6dd9ea80a43f1e31
 
     #In case you do not want to use defaults, you for example want to use different template
     - name: Generating HTML from my AsyncAPI document
-      uses: derberg/github-action-for-generator@4389353adaedf4dc8f69422a9466717a1100a138
+      uses: derberg/github-action-for-generator@0409191c21f902c78418d2ea6dd9ea80a43f1e31
       with:
         template: '@asyncapi/html-template@0.15.4'
         filepath: docs/api/my-asyncapi.yml
