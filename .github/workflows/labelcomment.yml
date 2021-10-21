@@ -8,12 +8,17 @@ jobs:
     if: github.event.pull_request.draft == false && ${{ github.event.issue.pull_request }}
     runs-on: ubuntu-latest
     steps:
+      - name: script
+        uses: actions/github-script@v5
+        id: my-script
+          with:
+          script: console.log(JSON.stringify(${{ github.event.issue.pull_request }}, 4, 4))
       - name: Parse comment1
         run: echo ${{ github.event.issue.pull_request }}
       - name: Parse comment2
         run: echo ${{ github.event.pull_request.draft }}
       - name: Parse comment3
-        run: echo ${{ github.event.issue.state }}
+        run: echo ${{ github.event.issue.state }} #this one is good
       - name: Parse comment4
         run: echo ${{ github.event.issue.draft }}
       - name: Parse comment5
