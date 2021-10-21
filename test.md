@@ -6,9 +6,6 @@ The Smartylighting Streetlights API allows you to remotely manage the city light
 
 * Turn a specific streetlight on/off 🌃
 * Dim a specific streetlight 😎
-* Receive real-time information about environmental lighting condition s 📈
-
-## Table of Contents 
 
 * [Servers](#servers)
 * [Channels](#channels)
