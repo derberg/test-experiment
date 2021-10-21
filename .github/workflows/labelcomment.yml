@@ -5,11 +5,12 @@ on: issue_comment
 jobs:
 
   parse-comment-and-add-label:
-    if: ${{ github.event.issue.pull_request }} && ${{ github.event.issue.state }} != 'closed'
+    if: ${{ github.event.issue.pull_request }} && ${{ github.event.issue.state != 'closed' }}
     runs-on: ubuntu-latest
     steps:
+      - run: echo ${{ toJSON(github.event.issue.pull_request) }}
       - name: Add label
-        if: contains( ${{ github.event.comment.body }}, '/ready-to-merge') || contains( ${{ github.event.comment.body }}, '/rtm') 
+        if: ${{ contains(github.event.comment.body, '/ready-to-merge') }} || ${{ contains(github.event.comment.body, '/rtm' ) }} 
         uses: buildsville/add-remove-label@v1
         with:
           token: ${{secrets.GITHUB_TOKEN}}
