@@ -12,7 +12,7 @@ jobs:
         uses: actions/github-script@v5
         id: my-script
           with:
-          script: console.log(JSON.stringify(${{ github.event.issue.pull_request }}, 4, 4))
+            script: console.log(JSON.stringify(${{ github.event.issue.pull_request }}, 4, 4))
       - name: Parse comment1
         run: echo ${{ github.event.issue.pull_request }}
       - name: Parse comment2
