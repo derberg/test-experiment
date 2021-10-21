@@ -8,10 +8,17 @@ jobs:
     if: ${{ github.event.issue.pull_request }} && ${{ !startsWith(github.event.issue.state, 'closed') }}
     runs-on: ubuntu-latest
     steps:
+      - echo ${{github.event.comment.body}}
+      - echo ${{ contains(github.event.comment.body, '/ready-to-merge') }}
       - name: Add label
         if: ${{ contains(github.event.comment.body, '/ready-to-merge') }} || ${{ contains(github.event.comment.body, '/rtm' ) }} 
-        uses: buildsville/add-remove-label@v1
+        uses: actions/github-script@v5
         with:
-          token: ${{secrets.GITHUB_TOKEN}}
-          label: ready-to-merge
-          type: add
+          github-token: ${{ secrets.GH_TOKEN }}
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['ready-to-merge']
+            })
