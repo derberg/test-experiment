@@ -15,6 +15,8 @@ jobs:
           script: |
             const prDetailsUrl = context.payload.issue.pull_request.url;
             const { draft } = await github.request(prDetailsUrl);
+            console.log(draft)
+            console.log(draft === false)
             return draft;
       - name: Add label
         if: steps.checkDraft.outputs.result == false && (contains(github.event.comment.body, '/ready-to-merge') || contains(github.event.comment.body, '/rtm' ))
