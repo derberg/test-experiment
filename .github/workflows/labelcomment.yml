@@ -13,8 +13,8 @@ jobs:
         with:
           result-encoding: string
           script: |
-            console.log(context.payload)
             const prDetailsUrl = context.payload.issue.pull_request.url;
+            console.log(await github.request(prDetailsUrl))
             const { draft } = await github.request(prDetailsUrl);
             console.log(draft)
             console.log(draft === false)
