@@ -16,11 +16,8 @@ jobs:
             const prDetailsUrl = context.payload.issue.pull_request.url;
             const { draft } = await github.request(prDetailsUrl);
             return draft;
-      - name: Get result
-        if: steps.checkDraft.outputs.result == "false"
-        run: echo "${{steps.checkDraft.outputs.result}}"
       - name: Add label
-        if: contains(github.event.comment.body, '/ready-to-merge') || contains(github.event.comment.body, '/rtm' )
+        if: steps.checkDraft.outputs.result == false && (contains(github.event.comment.body, '/ready-to-merge') || contains(github.event.comment.body, '/rtm' ))
         uses: actions/github-script@v5
         with:
           github-token: ${{ secrets.GH_TOKEN }}
