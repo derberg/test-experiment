@@ -1,30 +1,25 @@
-name: Add ready-to-merge label # if proper comment added
+#This workflow is centrally managed in https://github.com/asyncapi/.github/
+#Don't make changes to this file in this repo as they will be overwritten with changes made to the same file in above mentioned repo
 
-on: issue_comment
+name: Create help comment
+
+on: [issue_comment]
 
 jobs:
-
-  parse-comment-and-add-label:
-    if: github.event.issue.pull_request && github.event.issue.state != 'closed'
+  create_help_comment:
+    if: github.event.issue.pull_request
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v5
-        id: checkDraft
+      - uses: actions-ecosystem/action-create-comment@v1
+        if: contains(github.event.comment.body, '/help')
         with:
-          result-encoding: string
-          script: |
-            const prDetailsUrl = context.payload.issue.pull_request.url;
-            const response = await github.request(prDetailsUrl);
-            return response.data.draft;
-      - name: Add label
-        if: steps.checkDraft.outputs.result == 'false' && (contains(github.event.comment.body, '/ready-to-merge') || contains(github.event.comment.body, '/rtm' ))
-        uses: actions/github-script@v5
-        with:
-          github-token: ${{ secrets.GH_TOKEN }}
-          script: |
-            github.rest.issues.addLabels({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              labels: ['ready-to-merge']
-            })
+          github_token: ${{ secrets.GH_TOKEN }}
+          body: |
+            Hello, @${{ github.actor }}!
+
+            Don't worry that you do not remember all the supporte PR-level comments. I'm here to help!
+
+            At the moment the following comments are supported:
+
+            - /ready-to-merge or /rtm - This comment will trigger automerge of PR in case all required checks are green, approvals in place and do-not-merge label is not added
+            - /do-not-merge or /dnm - This comment will block automerging event if all conditions are met and ready-to-merge label is added
