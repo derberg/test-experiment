@@ -14,11 +14,8 @@ jobs:
           result-encoding: string
           script: |
             const prDetailsUrl = context.payload.issue.pull_request.url;
-            console.log(await github.request(prDetailsUrl))
-            const { draft } = await github.request(prDetailsUrl);
-            console.log(draft)
-            console.log(draft === false)
-            return draft;
+            const response = await github.request(prDetailsUrl);
+            return response.data.draft;
       - name: Add label
         if: steps.checkDraft.outputs.result == false && (contains(github.event.comment.body, '/ready-to-merge') || contains(github.event.comment.body, '/rtm' ))
         uses: actions/github-script@v5
