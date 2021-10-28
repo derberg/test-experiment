@@ -8,7 +8,17 @@ jobs:
     if: github.event.issue.pull_request && github.event.issue.state != 'closed'
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ toJSON(github.event.issue) }}
+      - uses: actions/github-script@v5
+        id: checkDraft
+        with:
+          result-encoding: string
+          script: |
+            const prDetailsUrl = context.payload.issue.pull_request.url;
+            const { draft } = await github.request(prDetailsUrl);
+            return draft;
+      - name: Get result
+        if: steps.checkDraft.outputs.result == "false"
+        run: echo "${{steps.checkDraft.outputs.result}}"
       - name: Add label
         if: contains(github.event.comment.body, '/ready-to-merge') || contains(github.event.comment.body, '/rtm' )
         uses: actions/github-script@v5
