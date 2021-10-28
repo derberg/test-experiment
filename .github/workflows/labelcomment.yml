@@ -15,11 +15,11 @@ jobs:
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           body: |
-            Hello, @${{ github.actor }}!
+            Hello, @${{ github.actor }}! 👋🏼 
 
-            Don't worry that you do not remember all the supporte PR-level comments. I'm here to help!
+            I'm Genie from the magic lamp. Looks like somebody needs a hand! 🆘 
 
-            At the moment the following comments are supported:
+            At the moment the following comments are supported in pull requests:
 
-            - /ready-to-merge or /rtm - This comment will trigger automerge of PR in case all required checks are green, approvals in place and do-not-merge label is not added
-            - /do-not-merge or /dnm - This comment will block automerging event if all conditions are met and ready-to-merge label is added
+            - `/ready-to-merge` or `/rtm` - This comment will trigger automerge of PR in case all required checks are green, approvals in place and do-not-merge label is not added
+            - `/do-not-merge` or `/dnm` - This comment will block automerging event if all conditions are met and ready-to-merge label is added
