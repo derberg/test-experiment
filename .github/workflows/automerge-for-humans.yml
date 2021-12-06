@@ -21,6 +21,9 @@ jobs:
     if: github.event.pull_request.user.login == 'derberg' && (github.event.pull_request.draft == false || github.event.pull_request.user.login == 'derberg')
     runs-on: ubuntu-latest
     steps:
+      - run: echo ${{github.event.pull_request.user.login}}
+      - run: echo ${{github.event.pull_request.draft}}
+      - run: echo ${{github.event.pull_request.draft}} == false
       - name: Automerge PR
         uses: pascalgn/automerge-action@v0.14.3
         env:
