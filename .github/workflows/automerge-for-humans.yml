@@ -18,7 +18,7 @@ on:
 jobs:
 
   automerge-for-humans:
-    if: github.event.pull_request.user.login == 'derberg' && (github.event.pull_request.draft == false || github.event.pull_request.user.login == 'derberg')
+    if: github.event.pull_request.user.login == 'derberg' && (github.event.pull_request.draft == false || github.event.pull_request.user.login == 'asyncapi-bot')
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{github.event.pull_request.user.login}}
