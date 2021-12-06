@@ -21,6 +21,9 @@ jobs:
     if: github.event.pull_request.user.login == 'derberg'
     runs-on: ubuntu-latest
     steps:
+      - run: echo ${{github.event.pull_request.user.login}}
+      - run: echo ${{github.event.pull_request.user}}
+      - run: echo ${{github.event.pull_request}}
       - name: Automerge PR
         uses: pascalgn/automerge-action@v0.14.3
         if: github.actor != 'asyncapi-bot' || github.actor != 'dependabot[bot]' || github.actor != 'dependabot-preview[bot]' #it runs only if PR actor is not a bot, at least not a bot that we know
