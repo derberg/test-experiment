@@ -23,8 +23,10 @@ body:
     attributes:
       label: Describe the bug.
       description: Is there a bug in one of our code snippets? Did we explain a concept incorrectly? 
-      placeholder: Please share a clear and concise description of what the bug or mistake is.
-      value: "I would like to file an AsyncAPI Docs Bug 🐞 report about..."
+      placeholder: |
+        Please share a clear and concise description of what the bug or mistake is.
+        
+        I would like to file an AsyncAPI Docs Bug 🐞 report about...
     validations:
       required: true
   - type: textarea
