@@ -30,6 +30,6 @@ jobs:
           GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
           MERGE_LABELS: "ready-to-merge"
           MERGE_METHOD: "squash"
-          MERGE_COMMIT_MESSAGE: "{pullRequest.title} #{pullRequest.number}"
+          MERGE_COMMIT_MESSAGE: "{pullRequest.title} (#{pullRequest.number})"
           MERGE_RETRIES: "20"
           MERGE_RETRY_SLEEP: "30000"
