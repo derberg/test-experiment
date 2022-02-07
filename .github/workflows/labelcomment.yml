@@ -26,14 +26,10 @@ on:
       types: 
         - created  
 
-env:
-  TSC_TEAM_NAME: '@asyncapi/tsc_members'
-  MSG_TITLE: 🆘 TSC Members Attention is Needed 🆘
-
 jobs:
 
     issue:
-      if: github.event_name == 'issues' && contains(github.event.issue.body, ${{ env.TSC_TEAM_NAME }}) && github.actor != 'asyncapi-bot' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
+      if: github.event_name == 'issues' && contains(github.event.issue.body, '@asyncapi/tsc_members') && github.actor != 'asyncapi-bot' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
       name: On every new issue
       runs-on: ubuntu-latest
       steps:
@@ -46,12 +42,12 @@ jobs:
           uses: rtCamp/action-slack-notify@v2
           env:
             SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
-            SLACK_TITLE: ${{ env.MSG_TITLE }}
+            SLACK_TITLE: 🆘 TSC Members Attention is Needed 🆘
             SLACK_MESSAGE: ${{steps.issuemarkdown.outputs.text}}
             MSG_MINIMAL: true
 
     pull_request:
-      if: github.event_name == 'pull_request_target' && contains(github.event.pull_request.body, ${{ env.TSC_TEAM_NAME }}) && github.actor != 'asyncapi-bot' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
+      if: github.event_name == 'pull_request_target' && contains(github.event.pull_request.body, '@asyncapi/tsc_members') && github.actor != 'asyncapi-bot' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
       name: On every new pull request
       runs-on: ubuntu-latest
       steps:
@@ -64,12 +60,12 @@ jobs:
           uses: rtCamp/action-slack-notify@v2
           env:
             SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
-            SLACK_TITLE: ${{ env.MSG_TITLE }}
+            SLACK_TITLE: 🆘 TSC Members Attention is Needed 🆘
             SLACK_MESSAGE: ${{steps.prmarkdown.outputs.text}}
             MSG_MINIMAL: true
     
     discussion:
-      if: github.event_name == 'discussion' && contains(github.event.discussion.body, ${{ env.TSC_TEAM_NAME }}) && github.actor != 'asyncapi-bot' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
+      if: github.event_name == 'discussion' && contains(github.event.discussion.body, '@asyncapi/tsc_members') && github.actor != 'asyncapi-bot' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
       name: On every new discussion
       runs-on: ubuntu-latest
       steps:
@@ -82,12 +78,12 @@ jobs:
           uses: rtCamp/action-slack-notify@v2
           env:
             SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
-            SLACK_TITLE: ${{ env.MSG_TITLE }}
+            SLACK_TITLE: 🆘 TSC Members Attention is Needed 🆘
             SLACK_MESSAGE: ${{steps.discussionmarkdown.outputs.text}}
             MSG_MINIMAL: true
 
     issue_comment:
-      if: ${{ !github.event.issue.pull_request }} && contains(github.event.comment.body, ${{ env.TSC_TEAM_NAME }}) && github.actor != 'asyncapi-bot' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
+      if: ${{ !github.event.issue.pull_request }} && contains(github.event.comment.body, '@asyncapi/tsc_members') && github.actor != 'asyncapi-bot' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
       name: On every new comment in issue
       runs-on: ubuntu-latest
       steps:
@@ -100,12 +96,12 @@ jobs:
           uses: rtCamp/action-slack-notify@v2
           env:
             SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
-            SLACK_TITLE: ${{ env.MSG_TITLE }}
+            SLACK_TITLE: 🆘 TSC Members Attention is Needed 🆘
             SLACK_MESSAGE: ${{steps.issuemarkdown.outputs.text}}
             MSG_MINIMAL: true
 
     pr_comment:
-      if: github.event.issue.pull_request && contains(github.event.comment.body, ${{ env.TSC_TEAM_NAME }}) && github.actor != 'asyncapi-bot' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
+      if: github.event.issue.pull_request && contains(github.event.comment.body, '@asyncapi/tsc_members') && github.actor != 'asyncapi-bot' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
       name: On every new comment in pr
       runs-on: ubuntu-latest
       steps:
@@ -118,12 +114,12 @@ jobs:
           uses: rtCamp/action-slack-notify@v2
           env:
             SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
-            SLACK_TITLE: ${{ env.MSG_TITLE }}
+            SLACK_TITLE: 🆘 TSC Members Attention is Needed 🆘
             SLACK_MESSAGE: ${{steps.prmarkdown.outputs.text}}
             MSG_MINIMAL: true
 
     discussion_comment:
-      if: github.event_name == 'discussion_comment' && contains(github.event.discussion_comment.body, ${{ env.TSC_TEAM_NAME }}) && github.actor != 'asyncapi-bot' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
+      if: github.event_name == 'discussion_comment' && contains(github.event.discussion_comment.body, '@asyncapi/tsc_members') && github.actor != 'asyncapi-bot' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
       name: On every new comment in discussion
       runs-on: ubuntu-latest
       steps:
@@ -136,6 +132,6 @@ jobs:
           uses: rtCamp/action-slack-notify@v2
           env:
             SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
-            SLACK_TITLE: ${{ env.MSG_TITLE }}
+            SLACK_TITLE: 🆘 TSC Members Attention is Needed 🆘
             SLACK_MESSAGE: ${{steps.discussionmarkdown.outputs.text}}
             MSG_MINIMAL: true
