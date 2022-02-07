@@ -123,7 +123,7 @@ jobs:
             MSG_MINIMAL: true
 
     discussion_comment:
-      if: github.event_name == 'discussion_comment' 
+      if: github.event_name == 'discussion_comment' && contains(github.event.comment.body, '@asyncapi/tsc_members')
       name: On every new comment in discussion
       runs-on: ubuntu-latest
       steps:
@@ -132,7 +132,7 @@ jobs:
           uses: LoveToKnow/slackify-markdown-action@v1.0.0
           id: discussionmarkdown
           with:
-            text: "[${{github.event.discussion.title}}](${{github.event.discussion.html_url}}) \n ${{github.event.discussion.body}}"
+            text: "[${{github.event.discussion.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
         - name: Send info about discussion comment
           uses: rtCamp/action-slack-notify@v2
           env:
