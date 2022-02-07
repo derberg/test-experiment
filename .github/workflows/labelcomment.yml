@@ -91,7 +91,7 @@ jobs:
           uses: LoveToKnow/slackify-markdown-action@v1.0.0
           id: issuemarkdown
           with:
-            text: "[${{github.event.issue.title}}](${{github.event.issue.html_url}}) \n ${{github.event.issue.body}}"
+            text: "[${{github.event.issue.title}}](${{github.event.issue.html_url}}) \n ${{github.event.comment.body}}"
         - name: Send info about issue comment
           uses: rtCamp/action-slack-notify@v2
           env:
@@ -109,7 +109,7 @@ jobs:
           uses: LoveToKnow/slackify-markdown-action@v1.0.0
           id: prmarkdown
           with:
-            text: "[${{github.event.pull_request.title}}](${{github.event.pull_request.html_url}}) \n ${{github.event.pull_request.body}}"
+            text: "[${{github.event.pull_request.title}}](${{github.event.pull_request.html_url}}) \n ${{github.event.comment.body}}"
         - name: Send info about PR comment
           uses: rtCamp/action-slack-notify@v2
           env:
@@ -127,7 +127,7 @@ jobs:
           uses: LoveToKnow/slackify-markdown-action@v1.0.0
           id: discussionmarkdown
           with:
-            text: "[${{github.event.issue.title}}](${{github.event.issue.html_url}}) \n ${{github.event.issue.body}}"
+            text: "[${{github.event.discussion.title}}](${{github.event.discussion.html_url}}) \n ${{github.event.discussion_comment.body}}"
         - name: Send info about discussion comment
           uses: rtCamp/action-slack-notify@v2
           env:
