@@ -28,7 +28,8 @@ on:
 
     discussion:
       types: 
-        - created  
+        - created
+        - edited
 
 jobs:
 
@@ -46,7 +47,7 @@ jobs:
           uses: rtCamp/action-slack-notify@v2
           env:
             SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
-            SLACK_TITLE: 🆘 New issue that requires attention of TSC Members 🆘
+            SLACK_TITLE: 🆘 New issue that requires TSC Members attention 🆘
             SLACK_MESSAGE: ${{steps.issuemarkdown.outputs.text}}
             MSG_MINIMAL: true
 
@@ -64,7 +65,7 @@ jobs:
           uses: rtCamp/action-slack-notify@v2
           env:
             SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
-            SLACK_TITLE: 🆘 New PR that requires attention of TSC Members 🆘
+            SLACK_TITLE: 🆘 New PR that requires TSC Members attention 🆘
             SLACK_MESSAGE: ${{steps.prmarkdown.outputs.text}}
             MSG_MINIMAL: true
     
@@ -82,7 +83,7 @@ jobs:
           uses: rtCamp/action-slack-notify@v2
           env:
             SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
-            SLACK_TITLE: 🆘 New discussion that requires attention of TSC Members 🆘
+            SLACK_TITLE: 🆘 New discussion that requires TSC Members attention 🆘
             SLACK_MESSAGE: ${{steps.discussionmarkdown.outputs.text}}
             MSG_MINIMAL: true
 
@@ -100,7 +101,7 @@ jobs:
           uses: rtCamp/action-slack-notify@v2
           env:
             SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
-            SLACK_TITLE: 🆘 New comment under existing issue that requires attention of TSC Members 🆘
+            SLACK_TITLE: 🆘 New comment under existing issue that requires TSC Members attention 🆘
             SLACK_MESSAGE: ${{steps.issuemarkdown.outputs.text}}
             MSG_MINIMAL: true
 
@@ -118,7 +119,7 @@ jobs:
           uses: rtCamp/action-slack-notify@v2
           env:
             SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
-            SLACK_TITLE: 🆘 New comment under existing PR that requires attention of TSC Members 🆘
+            SLACK_TITLE: 🆘 New comment under existing PR that requires TSC Members attention 🆘
             SLACK_MESSAGE: ${{steps.prmarkdown.outputs.text}}
             MSG_MINIMAL: true
 
@@ -136,6 +137,6 @@ jobs:
           uses: rtCamp/action-slack-notify@v2
           env:
             SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
-            SLACK_TITLE: 🆘 New comment under existing discussion that requires attention of TSC Members 🆘
+            SLACK_TITLE: 🆘 New comment under existing discussion that requires TSC Members attention 🆘
             SLACK_MESSAGE: ${{steps.discussionmarkdown.outputs.text}}
             MSG_MINIMAL: true
