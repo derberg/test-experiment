@@ -109,7 +109,7 @@ jobs:
           uses: LoveToKnow/slackify-markdown-action@v1.0.0
           id: prmarkdown
           with:
-            text: "[${{github.event.issue.pull_request.title}}](${{github.event.issue.pull_request.html_url}}) \n ${{github.event.comment.body}}"
+            text: "[${{github.event.issue.title}}](${{github.event.issue.pull_request.html_url}}) \n ${{github.event.comment.body}}"
         - name: Send info about PR comment
           uses: rtCamp/action-slack-notify@v2
           env:
