@@ -123,15 +123,16 @@ jobs:
             MSG_MINIMAL: true
 
     discussion_comment:
-      if: github.event_name == 'discussion_comment' && contains(github.event.discussion_comment.body, '@asyncapi/tsc_members')
+      if: github.event_name == 'discussion_comment' 
       name: On every new comment in discussion
       runs-on: ubuntu-latest
       steps:
+        - run: echo ${{ toJSON(github.event) }}
         - name: Convert markdown to slack markdown
           uses: LoveToKnow/slackify-markdown-action@v1.0.0
           id: discussionmarkdown
           with:
-            text: "[${{github.event.discussion.title}}](${{github.event.discussion.html_url}}) \n ${{github.event.discussion_comment.body}}"
+            text: "[${{github.event.discussion.title}}](${{github.event.discussion.html_url}}) \n ${{github.event.discussion.body}}"
         - name: Send info about discussion comment
           uses: rtCamp/action-slack-notify@v2
           env:
