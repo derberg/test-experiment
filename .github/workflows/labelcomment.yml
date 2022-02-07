@@ -87,11 +87,6 @@ jobs:
       name: On every new comment in issue
       runs-on: ubuntu-latest
       steps:
-        - run: |
-            echo ${{ !github.event.issue.pull_request }}
-            echo ${{ !!github.event.comment }}
-            echo ${{ github.event_name == 'issue_comment' }}
-            echo ${{ toJSON(github.event) }}
         - name: Convert markdown to slack markdown
           uses: LoveToKnow/slackify-markdown-action@v1.0.0
           id: issuemarkdown
