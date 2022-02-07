@@ -89,6 +89,8 @@ jobs:
       steps:
         - run: |
             echo ${{ github.event_name }}
+            echo ${{ !!github.event.comment }}
+            echo ${{ github.event_name == 'issue_comment' }}
             echo ${{ toJSON(github.event) }}
         - name: Convert markdown to slack markdown
           uses: LoveToKnow/slackify-markdown-action@v1.0.0
