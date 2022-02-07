@@ -8,9 +8,13 @@ on:
     issue_comment:
       types: 
         - created
+        - edited
+        
     discussion_comment:
       types: 
         - created
+        - edited
+        
     issues:
       types:
         - opened
@@ -91,7 +95,7 @@ jobs:
           uses: LoveToKnow/slackify-markdown-action@v1.0.0
           id: issuemarkdown
           with:
-            text: "[${{github.event.issue.title}}](${{github.event.issue.html_url}}) \n ${{github.event.comment.body}}"
+            text: "[${{github.event.issue.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
         - name: Send info about issue comment
           uses: rtCamp/action-slack-notify@v2
           env:
@@ -109,7 +113,7 @@ jobs:
           uses: LoveToKnow/slackify-markdown-action@v1.0.0
           id: prmarkdown
           with:
-            text: "[${{github.event.issue.title}}](${{github.event.issue.pull_request.html_url}}) \n ${{github.event.comment.body}}"
+            text: "[${{github.event.issue.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
         - name: Send info about PR comment
           uses: rtCamp/action-slack-notify@v2
           env:
