@@ -83,7 +83,7 @@ jobs:
             MSG_MINIMAL: true
 
     issue_comment:
-      if: github.event_name == 'issue_comment' && ${{ !github.event.issue.pull_request }} && ${{ contains(github.event.comment.body, '@asyncapi/tsc_members') }}
+      if: ${{ github.event_name == 'issue_comment' && !github.event.issue.pull_request && contains(github.event.comment.body, '@asyncapi/tsc_members') }}
       name: On every new comment in issue
       runs-on: ubuntu-latest
       steps:
