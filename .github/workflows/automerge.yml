@@ -1,0 +1,24 @@
+# This action is centrally managed in https://github.com/asyncapi/.github/
+# Don't make changes to this file in this repo as they will be overwritten with changes made to the same file in above mentioned repo.
+
+name: Automerge release bump PR
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  autoapprove:
+    if: >
+      contains(fromJson('["asyncapi-bot", "dependabot[bot]", "dependabot-preview[bot]"]'), github.event.pull_request.user.login) &&
+      contains(fromJson('["asyncapi-bot", "dependabot[bot]", "dependabot-preview[bot]"]'), github.actor) &&
+      !contains(github.event.pull_request.labels.*.name, 'released')
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{fromJson(github)}}
+      - name: Autoapproving
+        uses: hmarr/auto-approve-action@v2
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
