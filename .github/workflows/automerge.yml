@@ -13,7 +13,7 @@ jobs:
   autoapprove:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ github.actor )}}
+      - run: echo ${{ github.actor }}
       - name: Autoapproving
         uses: hmarr/auto-approve-action@v2
         with:
