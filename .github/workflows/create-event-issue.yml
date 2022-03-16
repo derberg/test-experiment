@@ -32,7 +32,7 @@ jobs:
         with:
           script: |
             const { writeFileSync } = require('fs');
-            const { getMeetingIssueContent } = require('./.github/workflows/event_issue_templates/sig.js');
+            const { getMeetingIssueContent } = require('./.github/workflows/event-schedule/sig.js');
 
             const issueContent =  getMeetingIssueContent('${{ github.event.inputs.time }}', '${{ github.event.inputs.everytimezone }}');
 
@@ -54,7 +54,7 @@ jobs:
         with:
           script: |
             const { writeFileSync } = require('fs');
-            const { getMeetingIssueContent } = require('./.github/workflows/event_issue_templates/contributor-first.js');
+            const { getMeetingIssueContent } = require('./.github/workflows/event-schedule/contributor-first.js');
 
             const issueContent =  getMeetingIssueContent('${{ github.event.inputs.time }}', '${{ github.event.inputs.everytimezone }}');
 

@@ -1,4 +1,4 @@
-name: Schedule Spec 3.0 Meeting
+name: Schedule Community Meeting
 
 on:
   workflow_dispatch:
@@ -12,10 +12,10 @@ on:
 
 jobs:
 
-  setup-spec-3-0-meeting:
+  setup-community-meeting:
     env:
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-    name: Setup 3.0 spec meeting
+    name: Setup Community meeting
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -25,8 +25,8 @@ jobs:
         id: date
         with:
           script: |
-            const { getMeetingIssueContent } = require('./.github/workflows/event_issue_templates/meetings/spec-3-0.js');
-            const setupMeeting = require('./.github/workflows/event_issue_templates/index.js');
+            const { getMeetingIssueContent } = require('./.github/workflows/event-schedule/meetings/community.js');
+            const setupMeeting = require('./.github/workflows/event-schedule/index.js');
             setupMeeting(${{ github.event.inputs.date }}, ${{ github.event.inputs.time }}, core, getMeetingIssueContent);
       - name: Create issue with meeting details
-        run: gh issue create -l meeting -t "Spec 3.0 Meeting, ${{steps.date.outputs.hour}} UTC ${{steps.date.outputs.fullDate}}" -F content.md
+        run: gh issue create -l meeting -t "Community Meeting, ${{steps.date.outputs.hour}} UTC ${{steps.date.outputs.fullDate}}" -F content.md
