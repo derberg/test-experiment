@@ -49,9 +49,7 @@ jobs:
         with:
           script: |
             const { getMeetingIssueContent } = require('./.github/workflows/event_issue_templates/meetings/community.js');
-            console.log('1')
-            const setupMeeting = require('./.github/workflows/event_issue_templates/meetings/index.js');
-            console.log('2')
-            setupMeeting('${{ github.event.inputs.date }}', '${{ github.event.inputs.time }}', core, getMeetingIssueContent, ${{steps.zoom.outputs.meetingUrl}});
+            const setupIssue = require('./.github/workflows/event_issue_templates/meetings/index.js');
+            setupIssue('${{ github.event.inputs.date }}', '${{ github.event.inputs.time }}', core, getMeetingIssueContent, '${{steps.zoom.outputs.meetingUrl}}');
       - name: Create issue with meeting details
         run: gh issue create -l meeting -t "${{env.MEETING_NAME}}, ${{steps.date.outputs.hour}}:00 UTC ${{steps.date.outputs.fullDate}}" -F content.md
