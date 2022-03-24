@@ -15,18 +15,41 @@ jobs:
   setup-community-meeting:
     env:
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      MEETING_NAME: Community Meeting
+      ZOOM_API_KEY: ${{ secrets.ZOOM_API_KEY }}
+      ZOOM_API_SECRET: ${{ secrets.ZOOM_API_SECRET }}
+      HOST: lpgornicki@gmail.com
+      ALTERNATIVE_HOSTS: fmvilas@gmail.com
+      STREAM_URL: ${{ secrets.STREAM_URL }}
+      STREAM_KEY: ${{ secrets.STREAM_KEY }}
     name: Setup Community meeting
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+      - name: Install deps
+        run: npm install
+        working-directory: ./.github/workflows/event_issue_templates
+      - name: Create zoom meeting
+        uses: actions/github-script@v4
+        id: zoom
+        with:
+          script: |
+            const setupZoom= require('./.github/workflows/event_issue_templates/zoom/index.js');
+            setupZoom('${{env.MEETING_NAME}}', '${{ github.event.inputs.date }}', '${{ github.event.inputs.time }}', '${{env.HOST}}', '${{env.ALTERNATIVE_HOSTS}}', core);
       - name: Create issue content
         uses: actions/github-script@v4
         id: date
         with:
           script: |
             const { getMeetingIssueContent } = require('./.github/workflows/event_issue_templates/meetings/community.js');
-            const setupMeeting = require('./.github/workflows/event_issue_templates/index.js');
-            setupMeeting('${{ github.event.inputs.date }}', '${{ github.event.inputs.time }}', core, getMeetingIssueContent);
+            const setupMeeting = require('./.github/workflows/event_issue_templates/meetings/index.js');
+            setupMeeting('${{ github.event.inputs.date }}', '${{ github.event.inputs.time }}', core, getMeetingIssueContent, ${{steps.zoom.outputs.meetingUrl}});
       - name: Create issue with meeting details
-        run: gh issue create -l meeting -t "Community Meeting, ${{steps.date.outputs.hour}}:00 UTC ${{steps.date.outputs.fullDate}}" -F content.md
+        run: gh issue create -l meeting -t "${{env.MEETING_NAME}}, ${{steps.date.outputs.hour}}:00 UTC ${{steps.date.outputs.fullDate}}" -F content.md

@@ -1,10 +1,64 @@
-module.exports.getMeetingIssueContent = (time, date) => {
+module.exports.getMeetingIssueContent = (time, date, zoom) => {
 
-    return `This is the AsyncAPI Community meeting. You're invited to [join us live on Zoom](https://zoom.us/j/165106914) and ask questions. **The meeting takes place on alternate Tuesdays**. Recordings from the previous meetings are available in [this](https://www.youtube.com/playlist?list=PLbi1gRlP7pijUwZJErzyYf_Rc-PWu4lXS) playlist on YouTube.
-
-**This time we meet at ${time}:00 UTC. Check what time is it in your time zone with [time zone converter](https://dateful.com/convert/coordinated-universal-time-utc?t=${time}&d=${date})**
-
-Join [this](https://groups.google.com/forum/#!forum/asyncapi-users) mailing list to get an always-up-to-date invite to the meeting in your calendar. You can also check [AsyncAPI Calendar](https://calendar.google.com/calendar/u/0/embed?src=tbrbfq4de5bcngt8okvev4lstk@group.calendar.google.com).
+    return `<table>
+    <tr>
+      <th>Meeting Info</th>
+      <th>Details</th>
+    </tr>
+    <tr>
+      <td>Purpose</td>
+      <td>This is a community meeting to regularly talk in open about important topics around AsyncAPI Initiative.</td>
+    </tr>
+    <tr>
+      <td>Time</td>
+      <td><strong>${time}:00 UTC</strong> | Translate to your time zone with <a href="https://dateful.com/convert/coordinated-universal-time-utc?t=${time}&d=${date}">time zone converter</a>.</td>
+    </tr>
+    <tr>
+      <th>Meeting Place</th>
+      <th>Link</th>
+    </tr>
+    <tr>
+      <td>Zoom</td>
+      <td><a href="${zoom}">Join live</a>.</td>
+    </tr>
+    <tr>
+      <td>YouTube</td>
+      <td><a href="https://www.youtube.com/asyncapi">Watch live and interact through live chat</a>.</td>
+    </tr>
+    <tr>
+      <td>Twitch</td>
+      <td><a href="https://www.twitch.tv/asyncapi">Watch live</a>.</td>
+    </tr>
+    <tr>
+      <td>Twitter</td>
+      <td><a href="https://twitter.com/AsyncAPISpec">Watch live</a>.</td>
+    </tr>
+    <tr>
+      <td>LinkedIn</td>
+      <td><a href="https://www.linkedin.com/company/asyncapi">Watch live</a>.</td>
+    </tr>
+    <tr>
+      <th>More Info</th>
+      <th>Details</th>
+    </tr>
+    <tr>
+      <td>Meeting Recordings</td>
+      <td><a href="https://www.youtube.com/playlist?list=PLbi1gRlP7pijUwZJErzyYf_Rc-PWu4lXS">YouTube Playlist</a>.</td>
+    </tr>
+    <tr>
+      <td>AsyncAPI Initiative Calendar</td>
+      <td><a href="https://calendar.google.com/calendar/embed?src=c_q9tseiglomdsj6njuhvbpts11c%40group.calendar.google.com&ctz=UTC">Public URL</a>.</td>
+    </tr>
+    <tr>
+      <td>iCal File</td>
+      <td><a href="https://calendar.google.com/calendar/ical/c_q9tseiglomdsj6njuhvbpts11c%40group.calendar.google.com/public/basic.ics">Add to your calendar</a>.</td>
+    </tr>
+    <tr>
+      <td>Newsletter</td>
+      <td><a href="https://www.asyncapi.com/newsletter">Subscribe to get weekly updates on upcoming meetings</a>.</td>
+    </tr>
+  </table>
+  
 
 ## Agenda
 
@@ -19,10 +73,6 @@ Join [this](https://groups.google.com/forum/#!forum/asyncapi-users) mailing list
 tbd
 
 ## Chat
-
-tbd
-
-## Recording
 
 tbd`
 }

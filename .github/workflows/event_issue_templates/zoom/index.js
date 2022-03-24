@@ -1,0 +1,80 @@
+const fetch = require('node-fetch');
+const jwt = require('jsonwebtoken');
+const { parseDate } = require('../utils/date.js');
+
+/**
+ * @param {string} meetingTitle Name of the meeting
+ * @param {string} date Date as YYYY-MM-DD
+ * @param {string} time Number that represents hour, 2-digit format
+ * @param {string} host email address of meeting host
+ * @param {string} cohost coma-separated list of email addresses of alternative hosts
+ * @param {string} core Entire core package helper
+ */
+module.exports = async(meetingTitle, date, time, host, cohost, core) => {
+
+    let meetingDetails;
+
+    const tokenConfig = {
+        iss: process.env.ZOOM_API_KEY,
+        exp: ((new Date()).getTime() + 5000)
+    }
+
+    const token = jwt.sign(tokenConfig, process.env.ZOOM_API_SECRET);
+
+    const zoomSettings = JSON.stringify({
+        topic: meetingTitle,
+        type: '2',
+        start_time: parseDate(`${ date }T${ time }:00:00Z`),
+        duration: '60',
+        timezone: 'UTC',
+        settings: {
+            alternative_hosts: cohost,
+            alternative_hosts_email_notification: false,
+            contact_email: 'info@asyncapi.io',
+            email_notification: false,
+            host_video: true,
+            mute_upon_entry: true,
+            participant_video: true,
+            join_before_host: false
+        }
+    })
+
+    const streamOptions = {
+        page_url: 'https://www.youtube.com/asyncapi',
+        stream_key: process.env.STREAM_KEY,
+        stream_url: process.env.STREAM_URL
+    }
+
+    const fetchOptions = {
+        method: 'POST',
+
+        headers: {
+            'User-Agent': 'Zoom-api-Jwt-Request',
+            'content-type': 'application/json',
+            'Authorization': `bearer ${ token }`
+        },
+
+        body: zoomSettings
+    }
+
+    try {
+        const meetingCreationResponse = await fetch(`https://api.zoom.us/v2/users/${ host }/meetings`, fetchOptions);
+        meetingDetails = await meetingCreationResponse.json();
+    } catch (error) {
+        throw new Error('Meeting creation failed:', error)
+    }
+
+    core.debug(JSON.stringify(meetingDetails));
+    const meetingId = meetingDetails.id;
+    const meetingUrl = meetingDetails.join_url;
+
+    try {
+        await fetch(`https://api.zoom.us/v2/meetings/${ meetingId }/livestream`, streamOptions);
+    } catch (error) {
+        throw new Error('Meeting update with streaming info failed:', error)
+    }
+
+    core.info(`Created meeting ${ meetingId } that you can join at ${ meetingUrl }`);
+    core.setOutput('meetingId', meetingId);
+    core.setOutput('meetingUrl', meetingUrl);
+}

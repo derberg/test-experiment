@@ -30,7 +30,7 @@ jobs:
         with:
           script: |
             const { getMeetingIssueContent } = require('./.github/workflows/event_issue_templates/meetings/lets-talk-about-contrib.js');
-            const setupMeeting = require('./.github/workflows/event_issue_templates/index.js');
+            const setupMeeting = require('./.github/workflows/event_issue_templates/meetings/index.js');
             setupMeeting('${{ github.event.inputs.date }}', '${{ github.event.inputs.time }}', core, getMeetingIssueContent);
       - name: Create issue with meeting details
         run: gh issue create -l meeting -t "Let's talk about contributing, ${{steps.date.outputs.hour}}:00 UTC ${{steps.date.outputs.fullDate}} ${{ github.event.inputs.descSuffix }}" -F content.md
