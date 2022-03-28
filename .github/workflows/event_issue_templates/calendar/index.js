@@ -40,7 +40,7 @@ async function addEvent(title, description, zoomUrl, startDate, startTime, issue
                     dateTime: `${ startDate }T${ startTime }:00:00Z`
                 },
                 end: {
-                    dateTime: `${ startDate }T${ endTime }:00:00Z`
+                    dateTime: `${ startDate }T${ endTime(startTime) }:00:00Z`
                 },
                 location: zoomUrl,
                 extendedProperties: {
