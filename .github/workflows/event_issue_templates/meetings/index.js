@@ -1,14 +1,14 @@
 const { writeFileSync } = require('fs');
 const { parseDate } = require('../utils/date.js');
+const core = require('@actions/core');
 
 /**
  * @param {string} date Date as YYYY-MM-DD
  * @param {string} time Number that represents hour, 2-digit format
- * @param {string} core Entire core package helper
  * @param {string} getMeetingIssueContent Function that returns content of the meeting issue 
  * @param {string} zoom Link to zoom meeting
 */
-module.exports = (date, time, core, getMeetingIssueContent, zoom) => {
+module.exports = (date, time, getMeetingIssueContent, zoom) => {
     
     core.info(`Workflow triggered with the following hour ${time} and date ${date}`);
     const dateDetails = parseDate(`${ date }T${ time }:00:00Z`);

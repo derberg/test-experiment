@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const jwt = require('jsonwebtoken');
+const core = require('@actions/core');
 
 /**
  * @param {string} meetingTitle Name of the meeting
@@ -7,9 +8,8 @@ const jwt = require('jsonwebtoken');
  * @param {string} time Number that represents hour, 2-digit format
  * @param {string} host email address of meeting host
  * @param {string} cohost coma-separated list of email addresses of alternative hosts
- * @param {string} core Entire core package helper
  */
-module.exports = async (meetingTitle, date, time, host, cohost, core) => {
+module.exports = async (meetingTitle, date, time, host, cohost) => {
 
     let meetingDetails;
 
@@ -54,7 +54,7 @@ module.exports = async (meetingTitle, date, time, host, cohost, core) => {
         const meetingCreationResponse = await fetch(`https://api.zoom.us/v2/users/${ host }/meetings`, fetchMeetingCreationOptions);
         meetingDetails = await meetingCreationResponse.json();
     } catch (error) {
-        throw new Error('Meeting creation failed:', error)
+        core.setFailed(`Meeting creation failed: ${ error }`)
     }
 
     //core.debug(JSON.stringify(meetingDetails));
@@ -81,7 +81,7 @@ module.exports = async (meetingTitle, date, time, host, cohost, core) => {
     try {
         await fetch(`https://api.zoom.us/v2/meetings/${ meetingId }/livestream`, fetchMeetingUpdateOptions);
     } catch (error) {
-        throw new Error('Meeting update with streaming info failed:', error)
+        core.setFailed(`Meeting update with streaming info failed: ${ error }`)
     }
 
     core.info(`Created meeting ${ meetingId } that you can join at ${ meetingUrl }`);
