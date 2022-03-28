@@ -1,14 +1,14 @@
 const { google } = require('googleapis')
 const core = require('@actions/core');
 
-module.exports = { addEvent, deleteEvent, listEvents}
+module.exports = { addEvent, deleteEvent, listEvents }
 
 const auth = new google.auth.GoogleAuth({
     scopes: ['https://www.googleapis.com/auth/calendar'],
     credentials: JSON.parse(process.env.CALENDAR_SERVICE_ACCOUNT)
 });
 
-const calendar = google.calendar({version: 'v3', auth});
+const calendar = google.calendar({ version: 'v3', auth });
 
 /**
  * Adds new single-occuring event
@@ -27,7 +27,7 @@ async function addEvent(title, description, zoomUrl, startDate, startTime, issue
         const endTime = (startTime) => {
             const time = Number(startTime);
             if (time < 10) return '0' + (time + 1)
-            
+
             return (time + 1) + ''
         }
 
@@ -49,11 +49,12 @@ async function addEvent(title, description, zoomUrl, startDate, startTime, issue
                     }
                 }
             }
-        }) 
+        })
+
+        core.info('Event created')
     } catch (error) {
         core.setFailed(`Faild creating event in Google Calendar: ${ error }`)
     }
-    core.info('Event created')
 }
 
 /**
@@ -62,7 +63,7 @@ async function addEvent(title, description, zoomUrl, startDate, startTime, issue
  */
 async function deleteEvent(issueNumber) {
     let events
-    
+
     try {
         events = (await calendar.events.list({
             calendarId: process.env.CALENDAR_ID,
@@ -71,21 +72,21 @@ async function deleteEvent(issueNumber) {
     } catch (error) {
         core.setFailed(`Failed to fetch events for issue numer ${ issueNumber }: ${ error }`)
     }
-    
+
     const eventsItems = events.items;
 
-    if ( eventsItems.length > 0 ) {
+    if (eventsItems.length > 0) {
 
         try {
             await calendar.events.delete({
                 calendarId: process.env.CALENDAR_ID,
                 eventId: eventsItems[0].id
             })
+
+            core.info('Event deleted from calendar')
         } catch (error) {
             core.setFailed(`Failed to delete event for issue number ${ issueNumber }: ${ error }`)
         }
-
-        core.info('Event deleted from calendar')
     } else {
         core.info('Event not found in calendar')
     }
@@ -100,21 +101,15 @@ async function listEvents() {
 
     try {
         response = await calendar.events.list({
-        calendarId: process.env.CALENDAR_ID,
-        timeMax: '2022-03-29T23:59:59Z',
-        timeMin: '2022-03-26T00:00:00Z'
-    })
+            calendarId: process.env.CALENDAR_ID,
+            timeMax: '2022-03-29T23:59:59Z',
+            timeMin: '2022-03-26T00:00:00Z'
+        })
+
+        core.info(`List of all events: ${ response.data }`)
     } catch (error) {
         core.setFailed(`Faild fetching events from Google Calendar API: ${ error }`)
     }
-    core.info(`List of all events: ${ response.data }`)
+
     return response.data
 }
-
-(async () => {
-    await addEvent('Test Recurring meeting', 'This meeting is for testing purposes.', 'https://zoom.com', '2022-03-30T16:00:00Z', '2022-03-30T17:00:00Z', 302)
-    //await deleteEvent(435)
-    // let instance = (await listInstances('p1edvsmdvsmt6ouei2a04v8qio'))[0]
-    // await updateInstance(instance, 1)
-    //console.log(await listEvents())
-})()
