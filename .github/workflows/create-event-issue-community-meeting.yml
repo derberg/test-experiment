@@ -61,4 +61,4 @@ jobs:
         with:
           script: |
             const { addEvent } = require('./.github/workflows/event_issue_templates/calendar/index.js');
-            addEvent('${{env.MEETING_NAME}}', '${{env.MEETING_DESC}}', '${{ github.event.inputs.date }}'', '${{ github.event.inputs.time }}'', '${{steps.zoom.outputs.meetingUrl}}', '${{ steps.create-issue.outputs.number }}'')
+            addEvent('${{env.MEETING_NAME}}', '${{env.MEETING_DESC}}', '${{ github.event.inputs.date }}', '${{ github.event.inputs.time }}', '${{steps.zoom.outputs.meetingUrl}}', '${{ steps.create-issue.outputs.number }}')
