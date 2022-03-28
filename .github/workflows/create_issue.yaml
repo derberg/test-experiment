@@ -10,4 +10,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           filename: .github/some-other-template.md
-          date: 2022-04-05T08:00:00Z
+          date: '2022-04-05T08:00:00Z'
