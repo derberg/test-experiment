@@ -13,7 +13,7 @@ title: Community Meeting, {{ env.FULL_DATE | date('h:mm [UTC] dddd MMMM Do YYYY'
 </tr>
 <tr>
 <td>Time</td>
-<td><strong>{{ env.FULL_DATE | date('h') }}:00 UTC</strong> | Translate to your time zone with <a href="https://dateful.com/convert/coordinated-universal-time-utc?t={{ env.FULL_DATE | date('hh') }}&d={{ env.DATE_ONLY | date('h') }}">time zone converter</a>.</td>
+<td><strong>{{ env.FULL_DATE | date('h') }}:00 UTC</strong> | Translate to your time zone with <a href="https://dateful.com/convert/coordinated-universal-time-utc?t={{ env.FULL_DATE | date('hh') }}&d={{ env.DATE_ONLY }}">time zone converter</a>.</td>
 </tr>
 <tr>
 <th>Meeting Place</th>
