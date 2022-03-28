@@ -9,5 +9,7 @@ jobs:
       - uses: JasonEtco/create-an-issue@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          filename: .github/some-other-template.md
           date: '2022-04-05T08:00:00Z'
+        with:
+          filename: .github/some-other-template.md
+          
