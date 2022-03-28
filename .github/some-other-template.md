@@ -1,5 +1,5 @@
 ---
-title: Community Meeting, {{ env.FULL_DATE | date('h:mm [UTC] dddd MMMM Do YYYY') }}
+title: {{ env.MEETING_TITLE }}, {{ env.FULL_DATE | date('h:mm [UTC] dddd MMMM Do YYYY') }}
 ---
 
 <table>
