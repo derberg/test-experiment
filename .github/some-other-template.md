@@ -1,5 +1,5 @@
 ---
-title: Community Meeting, {{ env.date | date().utc() | date('h:mm [UTC] dddd MMMM Mo YYYY') }}
+title: Community Meeting, {{ env.date | date('h:mm [UTC] dddd MMMM Mo YYYY').utc() }}
 ---
 What's everyone up to this week?
 Community Meeting, 16:00 UTC Tuesday April 5 2022
