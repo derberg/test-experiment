@@ -2,6 +2,7 @@ name: Schedule X Template Workflow
 
 on:
   workflow_call:
+
     inputs:
       time:
         description: 'Info about meeting hour in UTC time zone, like: 08 or 16. No PM or AM versions.'
@@ -39,6 +40,22 @@ on:
         description: 'Boolean information if meeting.'
         required: true
         type: boolean
+
+    secrets:
+      GITHUB_TOKEN: 
+        required: true
+      ZOOM_API_KEY:
+        required: true
+      ZOOM_API_SECRET:
+        required: true
+      STREAM_URL:
+        required: true
+      STREAM_KEY:
+        required: true
+      CALENDAR_ID: 
+        required: true
+      CALENDAR_SERVICE_ACCOUNT:
+        required: true
 
 jobs:
 
