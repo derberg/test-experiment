@@ -6,29 +6,39 @@ on:
       time:
         description: 'Info about meeting hour in UTC time zone, like: 08 or 16. No PM or AM versions.'
         required: true
+        type: string
       date:
         description: 'Date in a form like: 2022-04-05 where 04 is a month and 05 is a day number.'
         required: true
+        type: string
       meeting_name:
         description: 'Name of the meeting.'
         required: true
+        type: string
       meeting_name_suffix:
         description: 'Optional additional description added at the end of meeting title to indicate purpose of given meeting.'
+        type: string
+        required: false
       meeting_desc:
         description: 'Description of the purpose of the meeting.'
         required: true
+        type: string
       host:
         description: 'Email address of the host of the meeting.'
         required: true
+        type: string
       alternative_host:
         description: 'Email address of alternative hosts of the meeting.'
         required: true
+        type: string
       issue_template_path:
         description: 'Path to the issue template used to create meeting GH issue.'
         required: true
+        type: string
       create_zoom:
         description: 'Boolean information if meeting.'
         required: true
+        type: boolean
 
 jobs:
 
@@ -55,7 +65,8 @@ jobs:
       - name: Install deps
         run: npm install
         working-directory: ./.github/workflows/create-event-helpers
-      - name: Create zoom meeting
+      - if: inputs.create_zoom == true
+        name: Create zoom meeting
         uses: actions/github-script@v4
         id: zoom
         with:
