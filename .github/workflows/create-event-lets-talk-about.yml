@@ -27,7 +27,7 @@ jobs:
       host: lpgornicki@gmail.com
       alternative_host: fmvilas@gmail.com
       issue_template_path: .github/workflows/create-event-helpers/issues_templates/lets-talk-about-contrib.md
-      create_zoom: false
+      create_zoom: true
     secrets:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
       ZOOM_API_KEY: ${{ secrets.ZOOM_API_KEY }}

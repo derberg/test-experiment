@@ -41,8 +41,7 @@ async function addEvent(title, suffix, description, zoomUrl, startDate, startTim
             const zoomDetails = zoomUrl && `<b>Zoom</b>: <a href="${zoomUrl}">Meeting Link</a>`;
             const agendaDetails = `<b>Agenda and more options to join the meeting</b>: <a href="${communityIssuesUrl}${issueNumber}">GitHub Issue Link.</a>`;
 
-            return `${ description }<br><br>${ zoomDetails }<br><br>${ agendaDetails }
-            `
+            return `${ description }<br><br>${ zoomDetails }<br><br>${ agendaDetails }`
         };
 
         await calendar.events.insert({
