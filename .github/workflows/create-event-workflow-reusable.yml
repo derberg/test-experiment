@@ -42,8 +42,6 @@ on:
         type: boolean
 
     secrets:
-      GITHUB_TOKEN: 
-        required: true
       ZOOM_API_KEY:
         required: true
       ZOOM_API_SECRET:
