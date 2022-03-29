@@ -2,7 +2,7 @@ const { google } = require('googleapis')
 const core = require('@actions/core');
 
 module.exports = { addEvent, deleteEvent, listEvents }
-
+  
 const auth = new google.auth.GoogleAuth({
     scopes: ['https://www.googleapis.com/auth/calendar'],
     credentials: JSON.parse(process.env.CALENDAR_SERVICE_ACCOUNT)
@@ -74,8 +74,9 @@ async function addEvent(zoomUrl, startDate, startTime, issueNumber) {
 /**
  * Deletes a single-occuring event from issue number
  * @param {Number} issueNumber GitHub issue number of the meeting to delete
+ * @param {Number} closeDate Date when issue was closed
  */
-async function deleteEvent(issueNumber) {
+async function deleteEvent(issueNumber, closeDate) {
     let events
 
     try {
@@ -91,10 +92,17 @@ async function deleteEvent(issueNumber) {
 
     if (eventsItems.length > 0) {
 
+        const meetingId = eventsItems[0].id;
+        const eventStartDate = new Date(eventsItems[0].start.dateTime);
+        const issueCloseDate = new Date(closeDate);
+
         try {
+            //in case of issue was closed after the event, we do not remove it from calendar
+            if (eventStartDate.getTime() < issueCloseDate.getTime()) return core.info('Event not removed as related issue was closed after the event took place.');
+
             await calendar.events.delete({
                 calendarId: process.env.CALENDAR_ID,
-                eventId: eventsItems[0].id
+                eventId: meetingId
             })
 
             core.info('Event deleted from calendar')
