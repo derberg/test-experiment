@@ -13,7 +13,7 @@ on:
 jobs:
 
   setup-spec-3-0-meeting:
-    uses: .github/workflows/create-event-helpers/create-event-workflow.yml
+    uses: ./.github/workflows/create-event-helpers/create-event-workflow.yml
     with:
       time: ${{ github.event.inputs.time }}
       date: ${{ github.event.inputs.date }}
