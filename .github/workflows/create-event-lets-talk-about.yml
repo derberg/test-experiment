@@ -13,14 +13,6 @@ on:
         description: 'You can specify additional text that appears at the end of generated issue title, like: - Product Design'
         required: false
         default: ''
-    secrets:
-      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-      ZOOM_API_KEY: ${{ secrets.ZOOM_API_KEY }}
-      ZOOM_API_SECRET: ${{ secrets.ZOOM_API_SECRET }}
-      STREAM_URL: ${{ secrets.STREAM_URL }}
-      STREAM_KEY: ${{ secrets.STREAM_KEY }}
-      CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
-      CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
 
 jobs:
 
@@ -36,3 +28,11 @@ jobs:
       alternative_host: fmvilas@gmail.com
       issue_template_path: .github/workflows/create-event-helpers/issues_templates/lets-talk-about-contrib.md
       create_zoom: false
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      ZOOM_API_KEY: ${{ secrets.ZOOM_API_KEY }}
+      ZOOM_API_SECRET: ${{ secrets.ZOOM_API_SECRET }}
+      STREAM_URL: ${{ secrets.STREAM_URL }}
+      STREAM_KEY: ${{ secrets.STREAM_KEY }}
+      CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
+      CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
