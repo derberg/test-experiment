@@ -85,6 +85,5 @@ module.exports = async (meetingTitle, date, time, host, cohost) => {
     }
 
     core.info(`Created meeting ${ meetingId } that you can join at ${ meetingUrl }`);
-    core.setOutput('meetingId', meetingId);
     core.setOutput('meetingUrl', meetingUrl);
 }
