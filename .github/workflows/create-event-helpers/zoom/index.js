@@ -3,14 +3,14 @@ const jwt = require('jsonwebtoken');
 const core = require('@actions/core');
 
 /**
- * @param {string} meetingTitle Name of the meeting
  * @param {string} date Date as YYYY-MM-DD
  * @param {string} time Number that represents hour, 2-digit format
  * @param {string} host email address of meeting host
  * @param {string} cohost coma-separated list of email addresses of alternative hosts
  */
-module.exports = async (meetingTitle, date, time, host, cohost) => {
+module.exports = async (date, time, host, cohost) => {
 
+    const meetingTitle = process.env.MEETING_NAME;
     let meetingDetails;
 
     const tokenConfig = {

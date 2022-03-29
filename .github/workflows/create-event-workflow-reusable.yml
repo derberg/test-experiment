@@ -85,10 +85,12 @@ jobs:
         name: Create zoom meeting
         uses: actions/github-script@v4
         id: zoom
+        env:
+          MEETING_NAME: ${{ inputs.meeting_name }}
         with:
           script: |
             const setupZoom = require('./.github/workflows/create-event-helpers/zoom/index.js');
-            setupZoom('${{ inputs.meeting_name }}', '${{ inputs.date }}', '${{ inputs.time }}', '${{ inputs.host }}', '${{ inputs.alternative_host }}');
+            setupZoom('${{ inputs.date }}', '${{ inputs.time }}', '${{ inputs.host }}', '${{ inputs.alternative_host }}');
       - name: Create issue with meeting details
         uses: JasonEtco/create-an-issue@v2
         id: create-issue
@@ -104,7 +106,11 @@ jobs:
           filename: ${{ inputs.issue_template_path }}
       - name: Create Google Calendar entry with zoom
         uses: actions/github-script@v4
+        env:
+          MEETING_NAME: ${{ inputs.meeting_name }}
+          MEETING_NAME_SUFFIX: ${{ inputs.meeting_name_suffix }}
+          MEETING_DESC: ${{ inputs.meeting_desc }}
         with:
           script: |
             const { addEvent } = require('./.github/workflows/create-event-helpers/calendar/index.js');
-            addEvent('${{ inputs.meeting_name }}', '${{ inputs.meeting_name_suffix }}', '${{ inputs.meeting_desc }}', '${{ steps.zoom.outputs.meetingUrl }}', '${{ inputs.date }}', '${{ inputs.time }}', '${{ steps.create-issue.outputs.number }}');
+            addEvent('${{ steps.zoom.outputs.meetingUrl }}', '${{ inputs.date }}', '${{ inputs.time }}', '${{ steps.create-issue.outputs.number }}');

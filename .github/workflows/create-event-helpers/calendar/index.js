@@ -13,18 +13,19 @@ const calendar = google.calendar({ version: 'v3', auth });
 /**
  * Adds new single-occuring event
  * All events are being linked to their GitHub issues
- * @param {String} title Title of the event
- * @param {String} suffix Suffix of the title of the event
- * @param {String} description Description of the event
  * @param {String} zoomUrl Zoom url of the meeting
  * @param {String} startDate ex. 2022-04-05
  * @param {String} startTime ex. 08 or 16
  * @param {Number} issueNumber GitHub issue number of the event, to find event later
  */
-async function addEvent(title, suffix, description, zoomUrl, startDate, startTime, issueNumber) {
+async function addEvent(zoomUrl, startDate, startTime, issueNumber) {
+
+    const communityIssuesUrl = 'https://github.com/asyncapi/community/issues/';
+    const title = process.env.MEETING_NAME;
+    const suffix = process.env.MEETING_NAME_SUFFIX;
+    const description = process.env.MEETING_DESC;
 
     try {
-        const communityIssuesUrl = 'https://github.com/asyncapi/community/issues/';
 
         //helper to create end time which is always 1h later
         const getEndTime = (startTime) => {
