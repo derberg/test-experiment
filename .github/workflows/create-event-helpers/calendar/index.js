@@ -48,7 +48,7 @@ async function addEvent(zoomUrl, startDate, startTime, issueNumber) {
         await calendar.events.insert({
             calendarId: process.env.CALENDAR_ID,
             requestBody: {
-                summary: title + suffix,
+                summary: `${title} ${suffix}`,
                 description: getDescription(description, communityIssuesUrl, issueNumber, zoomUrl),
                 start: {
                     dateTime: `${ startDate }T${ startTime }:00:00Z`
