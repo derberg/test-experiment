@@ -21,13 +21,13 @@ jobs:
     with:
       time: ${{ github.event.inputs.time }}
       date: ${{ github.event.inputs.date }}
-      meeting_name: Lets talk about contributing
+      meeting_name: Let\'s talk about contributing
       meeting_name_suffix: ${{ github.event.inputs.descSuffix }}
       meeting_desc: The purpose of this meeting is to focus on contributors, focus on people that want to contribute to AsyncAPI Initiative but do not know how to do it.
       host: lpgornicki@gmail.com
       alternative_host: fmvilas@gmail.com
       issue_template_path: .github/workflows/create-event-helpers/issues_templates/lets-talk-about-contrib.md
-      create_zoom: true
+      create_zoom: false
     secrets:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
       ZOOM_API_KEY: ${{ secrets.ZOOM_API_KEY }}
