@@ -96,8 +96,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           FULL_DATE: ${{ inputs.date }}T${{ inputs.time }}:00:00Z
           DATE_ONLY: ${{ inputs.date }}
-          TITLE_SUFFIX: ${{ inputs.meeting_name_suffix }}
           ZOOM_LINK: ${{ steps.zoom.outputs.meetingUrl }}
+          MEETING_NAME: ${{ inputs.meeting_name }}
+          MEETING_NAME_SUFFIX: ${{ inputs.meeting_name_suffix }}
+          MEETING_DESC: ${{ inputs.meeting_desc }}
         with:
           filename: ${{ inputs.issue_template_path }}
       - name: Create Google Calendar entry
