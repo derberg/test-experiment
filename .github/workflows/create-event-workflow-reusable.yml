@@ -109,7 +109,7 @@ jobs:
           script: |
             const { addEvent } = require('./.github/workflows/create-event-helpers/calendar/index.js');
             addEvent('${{ inputs.meeting_name }}', '${{ inputs.meeting_name_suffix }}', '${{ inputs.meeting_desc }}', '${{ steps.zoom.outputs.meetingUrl }}', '${{ inputs.date }}', '${{ inputs.time }}', '${{ steps.create-issue.outputs.number }}');
-      - if: inputs.create_zoom !== true
+      - if: inputs.create_zoom != true
         name: Create Google Calendar entry without zoom
         uses: actions/github-script@v4
         with:
