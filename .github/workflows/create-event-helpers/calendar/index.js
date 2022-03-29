@@ -16,12 +16,11 @@ const calendar = google.calendar({ version: 'v3', auth });
  * @param {String} title Title of the event
  * @param {String} suffix Suffix of the title of the event
  * @param {String} description Description of the event
- * @param {String} zoomUrl Zoom url of the meeting
  * @param {String} startDate ex. 2022-04-05
  * @param {String} startTime ex. 08 or 16
  * @param {Number} issueNumber GitHub issue number of the event, to find event later
  */
-async function addEvent(title, suffix, description, zoomUrl, startDate, startTime, issueNumber) {
+async function addEvent(title, suffix, description, startDate, startTime, issueNumber) {
 
     try {
         const communityIssuesUrl = 'https://github.com/asyncapi/community/issues/';
@@ -49,7 +48,7 @@ async function addEvent(title, suffix, description, zoomUrl, startDate, startTim
             calendarId: process.env.CALENDAR_ID,
             requestBody: {
                 summary: title + suffix,
-                description: getDescription(description, communityIssuesUrl, issueNumber, zoomUrl),
+                description: getDescription(description, communityIssuesUrl, issueNumber, process.env.MEETING_URL),
                 start: {
                     dateTime: `${ startDate }T${ startTime }:00:00Z`
                 },

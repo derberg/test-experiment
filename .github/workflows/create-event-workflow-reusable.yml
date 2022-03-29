@@ -109,6 +109,4 @@ jobs:
         with:
           script: |
             const { addEvent } = require('./.github/workflows/create-event-helpers/calendar/index.js');
-            //must be done like this otherwise in case no meeting url is passed, we do not get empty string or undefined, but syntax error
-            const meetingUrl = process.env.MEETING_URL;
-            addEvent('${{ inputs.meeting_name }}', '${{ inputs.meeting_name_suffix }}', '${{ inputs.meeting_desc }}', meetingUrl, '${{ inputs.date }}', '${{ inputs.time }}', '${{ steps.create-issue.outputs.number }}');
+            addEvent('${{ inputs.meeting_name }}', '${{ inputs.meeting_name_suffix }}', '${{ inputs.meeting_desc }}', '${{ inputs.date }}', '${{ inputs.time }}', '${{ steps.create-issue.outputs.number }}');
