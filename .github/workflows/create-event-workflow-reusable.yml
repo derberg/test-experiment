@@ -104,10 +104,11 @@ jobs:
           filename: ${{ inputs.issue_template_path }}
       - name: Create Google Calendar entry
         uses: actions/github-script@v4
+        env:
+          MEETING_URL: ${{ steps.zoom.outputs.meetingUrl }}
         with:
           script: |
             const { addEvent } = require('./.github/workflows/create-event-helpers/calendar/index.js');
-            let meetingUrl = null;
-            if (${{ steps.zoom.outputs.meetingUrl }} !== '') meetingUrl = ${{ steps.zoom.outputs.meetingUrl }};
-
+            //must be done like this otherwise in case no meeting url is passed, we do not get empty string or undefined, but syntax error
+            let meetingUrl = process.evn.MEETING_URL;
             addEvent('${{ inputs.meeting_name }}', '${{ inputs.meeting_name_suffix }}', '${{ inputs.meeting_desc }}', meetingUrl, '${{ inputs.date }}', '${{ inputs.time }}', '${{ steps.create-issue.outputs.number }}');
