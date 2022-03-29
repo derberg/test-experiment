@@ -21,7 +21,7 @@ jobs:
     with:
       time: ${{ github.event.inputs.time }}
       date: ${{ github.event.inputs.date }}
-      meeting_name: Let's talk about contributing
+      meeting_name: "Let's talk about contributing"
       meeting_name_suffix: ${{ github.event.inputs.descSuffix }}
       meeting_desc: The purpose of this meeting is to focus on contributors, focus on people that want to contribute to AsyncAPI Initiative but do not know how to do it.
       host: lpgornicki@gmail.com
