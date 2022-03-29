@@ -8,7 +8,7 @@ const core = require('@actions/core');
  * @param {string} host email address of meeting host
  * @param {string} cohost coma-separated list of email addresses of alternative hosts
  */
-module.exports = async (date, time, host, cohost) => {
+module.exports = async(date, time, host, cohost) => {
 
     const meetingTitle = process.env.MEETING_NAME;
     let meetingDetails;
@@ -84,6 +84,7 @@ module.exports = async (date, time, host, cohost) => {
         core.setFailed(`Meeting update with streaming info failed: ${ error }`)
     }
 
+    if (!meetingId) core.setFailed('meetingId is not available which means something went wrong in communication with Zoom. Most probably the host that you defined is not yet part of related Zoom account');
     core.info(`Created meeting ${ meetingId } that you can join at ${ meetingUrl }`);
     core.setOutput('meetingUrl', meetingUrl);
 }
