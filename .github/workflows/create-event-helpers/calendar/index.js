@@ -165,7 +165,7 @@ async function listEvents() {
         core.info('No events scheduled for next week so no email will be sent');
         core.setOutput('eventsItems', 'false');
     } else {
-        core.setOutput('eventsItems', meetingsList(eventsItems));
+        core.setOutput('eventsItems', meetingsList(eventsItems).replace(/'/g, "''"));
     }
 
 }
