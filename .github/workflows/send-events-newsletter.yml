@@ -29,17 +29,9 @@ jobs:
       - name: Install deps
         run: npm install
         working-directory: ./.github/workflows/create-event-helpers
-      - name: Get list of all events from Google Calendar
-        uses: actions/github-script@v4
-        id: events
-        with:
-          script: |
-            const { listEvents } = require('./.github/workflows/create-event-helpers/calendar/index.js');
-            listEvents();
-      - if: steps.events.outputs.eventsItems != 'false'
-        name: Send email with MailChimp
+      - name: Send email with MailChimp
         uses: actions/github-script@v4
         with:
           script: |
             const sendEmail = require('./.github/workflows/create-event-helpers/mailchimp/index.js');
-            sendEmail('${{ steps.events.outputs.eventsItems }}');
+            sendEmail();

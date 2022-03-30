@@ -149,23 +149,6 @@ async function listEvents() {
         core.setFailed(`Faild fetching events from Google Calendar API: ${ JSON.stringify(error) }`)
     }
 
-    const meetingsList = (list) => {
-
-        const communityIssuesUrl = 'https://github.com/asyncapi/community/issues/';
-        let bulletPoints = ''
-
-        for (const item of list) {
-            bulletPoints += `<li><strong>${ item.title }</strong> on ${ item.date}. <br>See more details on meeting agenda and connection details in <a href="${ communityIssuesUrl }${ item.issueId }" style="color:#007c89;font-weight:normal;text-decoration:underline" target="_blank">this GitHub issue</a></li>`
-        }
-
-        return bulletPoints;
-    }
-
-    if (!eventsItems.length) {
-        core.info('No events scheduled for next week so no email will be sent');
-        core.setOutput('eventsItems', 'false');
-    } else {
-        core.setOutput('eventsItems', meetingsList(eventsItems).replace(/'/g, "''"));
-    }
+    return eventsItems;
 
 }

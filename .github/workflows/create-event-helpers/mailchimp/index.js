@@ -1,11 +1,16 @@
 const mailchimp = require('@mailchimp/mailchimp_marketing');
 const core = require('@actions/core');
 const htmlContent = require('./htmlContent.js');
+const { listEvents } = require('../calendar/index.js');
 
 /**
- * @param {string} events List of events in a string in format "[{\"title\":\"Community Meeting \",\"issueId\":\"143\",\"date\":\"Tue, 05 Apr 2022 16:00:00 GMT\"},{\"title\":\"Let's talk about contributing - Website\",\"issueId\":\"144\",\"date\":\"Mon, 04 Apr 2022 18:00:00 GMT\"}]"
+ * Listing events from Google Calendar and sending them to Newsletter subscribers. 
+ * This code is not triggered separately in workflow, in 2 separate steps a GitHub actions have issues when doing code.setOutput with complex JSON in String.
  */
-module.exports = async(events) => {
+module.exports = async() => {
+
+    const events = await listEvents();
+    if (!events.length) return core.info('No events scheduled for next week so no email will be sent');
 
     let newCampaign;
 
