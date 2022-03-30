@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  cancel_event:
+  send_email:
     env:
       CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
       CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
