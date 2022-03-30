@@ -9,12 +9,6 @@ on:
 jobs:
 
   send_email:
-    env:
-      CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
-      CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
-      MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
-      MAILCHIMP_SERVER_PREFIX: ${{ secrets.MAILCHIMP_SERVER_PREFIX }}
-      MAILCHIMP_RECIPIENTS: ${{ secrets.MAILCHIMP_RECIPIENTS }}
     name: Remove event from calendar
     runs-on: ubuntu-latest
     steps:
@@ -31,6 +25,12 @@ jobs:
         working-directory: ./.github/workflows/create-event-helpers
       - name: Send email with MailChimp
         uses: actions/github-script@v4
+        env:
+          CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
+          CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
+          MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
+          MAILCHIMP_SERVER_PREFIX: ${{ secrets.MAILCHIMP_SERVER_PREFIX }}
+          MAILCHIMP_RECIPIENTS: ${{ secrets.MAILCHIMP_RECIPIENTS }}
         with:
           script: |
             const sendEmail = require('./.github/workflows/create-event-helpers/mailchimp/index.js');
