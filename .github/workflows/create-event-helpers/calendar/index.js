@@ -86,7 +86,7 @@ async function deleteEvent(issueNumber, closeDate) {
             privateExtendedProperty: `ISSUE_ID=${issueNumber}`
         })).data;
     } catch (error) {
-        core.setFailed(`Failed to fetch events for issue numer ${ issueNumber }: ${ JSON.stringify(error) }`)
+        return core.setFailed(`Failed to fetch events for issue numer ${ issueNumber }: ${ JSON.stringify(error) }`)
     }
 
     const eventsItems = events.items;
@@ -146,7 +146,7 @@ async function listEvents() {
         
         core.info(`List of all events: ${ JSON.stringify(eventsList.data, null, 4) }`)
     } catch (error) {
-        core.setFailed(`Faild fetching events from Google Calendar API: ${ JSON.stringify(error) }`)
+        return core.setFailed(`Faild fetching events from Google Calendar API: ${ JSON.stringify(error) }`)
     }
 
     return eventsItems;

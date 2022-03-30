@@ -54,7 +54,7 @@ module.exports = async(date, time, host, cohost) => {
         const meetingCreationResponse = await fetch(`https://api.zoom.us/v2/users/${ host }/meetings`, fetchMeetingCreationOptions);
         meetingDetails = await meetingCreationResponse.json();
     } catch (error) {
-        core.setFailed(`Meeting creation failed: ${ error }`)
+        return core.setFailed(`Meeting creation failed: ${ error }`)
     }
 
     //core.debug(JSON.stringify(meetingDetails));
@@ -81,10 +81,10 @@ module.exports = async(date, time, host, cohost) => {
     try {
         await fetch(`https://api.zoom.us/v2/meetings/${ meetingId }/livestream`, fetchMeetingUpdateOptions);
     } catch (error) {
-        core.setFailed(`Meeting update with streaming info failed: ${ error }`)
+        return core.setFailed(`Meeting update with streaming info failed: ${ error }`)
     }
 
-    if (!meetingId) core.setFailed('meetingId is not available which means something went wrong in communication with Zoom. Most probably the host that you defined is not yet part of related Zoom account');
+    if (!meetingId) return core.setFailed('meetingId is not available which means something went wrong in communication with Zoom. Most probably the host that you defined is not yet part of related Zoom account');
     core.info(`Created meeting ${ meetingId } that you can join at ${ meetingUrl }`);
     core.setOutput('meetingUrl', meetingUrl);
 }

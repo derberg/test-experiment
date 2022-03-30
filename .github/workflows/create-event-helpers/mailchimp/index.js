@@ -11,6 +11,7 @@ module.exports = async () => {
 
     const events = await listEvents();
     if (!events.length) return core.info('No events scheduled for next week so no email will be sent');
+    core.info(`Formatted list of events: ${ JSON.stringify(events.data, null, 4) }`)
 
     let newCampaign;
 
@@ -34,19 +35,19 @@ module.exports = async () => {
             }
         });
     } catch (error) {
-        core.setFailed(`Failed creating campaign: ${ JSON.stringify(error) }`);
+        return core.setFailed(`Failed creating campaign: ${ JSON.stringify(error) }`);
     }
 
     try {
         await mailchimp.campaigns.setContent(newCampaign.id, { html: htmlContent(events) });
     } catch (error) {
-        core.setFailed(`Failed adding content to campaign: ${ JSON.stringify(error) }`);
+        return core.setFailed(`Failed adding content to campaign: ${ JSON.stringify(error) }`);
     }
 
     try {
         await mailchimp.campaigns.send(newCampaign.id);
     } catch (error) {
-        core.setFailed(`Failed sending email: ${ JSON.stringify(error) }`);
+        return core.setFailed(`Failed sending email: ${ JSON.stringify(error) }`);
     }
 
     core.info(`New email campaign created`);
