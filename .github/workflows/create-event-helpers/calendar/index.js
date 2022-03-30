@@ -150,5 +150,5 @@ async function listEvents() {
     }
     console.log(eventsItems)
     console.log(JSON.stringify(eventsItems))
-    core.setOutput('eventsItems', '[]']);
+    core.setOutput('eventsItems', '[]');
 }
