@@ -1,17 +1,4 @@
-module.exports = (parsedList) => {
-
-
-    const meetingsList = (list) => {
-
-        const communityIssuesUrl = 'https://github.com/asyncapi/community/issues/';
-        let bulletPoints = ''
-
-        for (const item of list) {
-            bulletPoints += `<li><strong>${ item.title }</strong> on ${ item.date}. <br>See more details on meeting agenda and connection details in <a href="${ communityIssuesUrl }${ item.issueId }" style="color:#007c89;font-weight:normal;text-decoration:underline" target="_blank">this GitHub issue</a></li>`
-        }
-
-        return bulletPoints;
-    }
+module.exports = (list) => {
 
     return `<!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -416,7 +403,7 @@ I'm excited to share with you what meetings have been planned at AsyncAPI for to
                                     <td class="m_-6916184742052453734mcnTextContent" style="padding-top:0;padding-right:18px;padding-bottom:9px;padding-left:18px;word-break:break-word;color:#202020;font-family:Helvetica;font-size:16px;line-height:150%;text-align:left" valign="top">
             
                                         <ul>
-                                        ${ meetingsList(parsedList) }
+                                        ${ list }
             </ul>
             
                                     </td>

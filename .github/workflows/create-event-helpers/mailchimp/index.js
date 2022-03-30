@@ -7,10 +7,6 @@ const htmlContent = require('./htmlContent.js');
  */
 module.exports = async(events) => {
 
-    const parsedList = JSON.parse(events);
-
-    if (!parsedList.length) return core.info('No events scheduled for next week so no email will be sent');
-
     let newCampaign;
 
     mailchimp.setConfig({
@@ -37,7 +33,7 @@ module.exports = async(events) => {
     }
 
     try {
-        await mailchimp.campaigns.setContent(newCampaign.id, { html: htmlContent(parsedList) });
+        await mailchimp.campaigns.setContent(newCampaign.id, { html: htmlContent(events) });
     } catch (error) {
         core.setFailed(`Failed adding content to campaign: ${ JSON.stringify(error) }`);
     }
