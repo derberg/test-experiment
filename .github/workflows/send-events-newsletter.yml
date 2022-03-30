@@ -1,0 +1,43 @@
+name: Send email to newsletter subscribers about upcomming meetings
+
+on:
+  schedule:
+    # Runs "At 23:59 on Thursday." (see https://crontab.guru)
+    - cron: '20 17 * * 3' #'59 23 * * 4'
+
+jobs:
+
+  cancel_event:
+    env:
+      CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
+      CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
+      MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
+      MAILCHIMP_SERVER_PREFIX: ${{ secrets.MAILCHIMP_SERVER_PREFIX }}
+      MAILCHIMP_RECIPIENTS: ${{ secrets.MAILCHIMP_RECIPIENTS }}
+    name: Remove event from calendar
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+      - name: Install deps
+        run: npm install
+        working-directory: ./.github/workflows/create-event-helpers
+      - name: Get list of all events from Google Calendar
+        uses: actions/github-script@v4
+        id: events
+        with:
+          script: |
+            const { listEvents } = require('./.github/workflows/create-event-helpers/calendar/index.js');
+            listEvents();
+      - name: Send email with MailChimp
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const sendEmail = require('./.github/workflows/create-event-helpers/mailchimp/index.js');
+            sendEmail('${{ steps.events.outputs.eventsItems }}');

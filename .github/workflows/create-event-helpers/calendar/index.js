@@ -2,7 +2,7 @@ const { google } = require('googleapis')
 const core = require('@actions/core');
 
 module.exports = { addEvent, deleteEvent, listEvents }
-  
+
 const auth = new google.auth.GoogleAuth({
     scopes: ['https://www.googleapis.com/auth/calendar'],
     credentials: JSON.parse(process.env.CALENDAR_SERVICE_ACCOUNT)
@@ -24,6 +24,7 @@ async function addEvent(zoomUrl, startDate, startTime, issueNumber) {
     const title = process.env.MEETING_NAME;
     const suffix = process.env.MEETING_NAME_SUFFIX;
     const description = process.env.MEETING_DESC;
+    const summary = suffix ? `${title} ${suffix}` : title;
 
     try {
 
@@ -48,7 +49,7 @@ async function addEvent(zoomUrl, startDate, startTime, issueNumber) {
         await calendar.events.insert({
             calendarId: process.env.CALENDAR_ID,
             requestBody: {
-                summary: `${title} ${suffix}`,
+                summary,
                 description: getDescription(description, communityIssuesUrl, issueNumber, zoomUrl),
                 start: {
                     dateTime: `${ startDate }T${ startTime }:00:00Z`
@@ -67,7 +68,7 @@ async function addEvent(zoomUrl, startDate, startTime, issueNumber) {
 
         core.info('Event created')
     } catch (error) {
-        core.setFailed(`Faild creating event in Google Calendar: ${ error }`)
+        core.setFailed(`Faild creating event in Google Calendar: ${ JSON.stringify(error) }`)
     }
 }
 
@@ -85,7 +86,7 @@ async function deleteEvent(issueNumber, closeDate) {
             privateExtendedProperty: `ISSUE_ID=${issueNumber}`
         })).data;
     } catch (error) {
-        core.setFailed(`Failed to fetch events for issue numer ${ issueNumber }: ${ error }`)
+        core.setFailed(`Failed to fetch events for issue numer ${ issueNumber }: ${ JSON.stringify(error) }`)
     }
 
     const eventsItems = events.items;
@@ -107,7 +108,7 @@ async function deleteEvent(issueNumber, closeDate) {
 
             core.info('Event deleted from calendar')
         } catch (error) {
-            core.setFailed(`Failed to delete event for issue number ${ issueNumber }: ${ error }`)
+            core.setFailed(`Failed to delete event for issue number ${ issueNumber }: ${ JSON.stringify(error) }`)
         }
     } else {
         core.info('Event not found in calendar')
@@ -119,19 +120,34 @@ async function deleteEvent(issueNumber, closeDate) {
  */
 async function listEvents() {
 
-    let response;
+    let eventsItems;
 
     try {
-        response = await calendar.events.list({
+        //this runs always on thursday before midnight so folks can read email on friday
+        const currentTime = new Date(Date.now()).toISOString();
+        //we check moday
+        const timeIn3Days = new Date(Date.parse(currentTime) + 3 * 24 * 60 * 60 * 1000).toISOString();
+        //till friday
+        const timeIn8Days = new Date(Date.parse(currentTime) + 8 * 24 * 60 * 60 * 1000).toISOString();
+
+        const eventsList = await calendar.events.list({
             calendarId: process.env.CALENDAR_ID,
-            timeMax: '2022-03-29T23:59:59Z',
-            timeMin: '2022-03-26T00:00:00Z'
+            timeMax: timeIn8Days,
+            timeMin: timeIn3Days
         })
 
-        core.info(`List of all events: ${ response.data }`)
+        eventsItems = eventsList.data.items.map((e) => {
+            return {
+                title: e.summary,
+                issueId: e.extendedProperties.private.ISSUE_ID,
+                date: new Date(e.start.dateTime).toUTCString()
+            }
+        })
+        
+        core.info(`List of all events: ${ JSON.stringify(eventsList.data, null, 4) }`)
     } catch (error) {
-        core.setFailed(`Faild fetching events from Google Calendar API: ${ error }`)
+        core.setFailed(`Faild fetching events from Google Calendar API: ${ JSON.stringify(error) }`)
     }
-
-    return response.data
+    
+    core.setOutput('eventsItems', JSON.stringify(eventsItems));
 }
