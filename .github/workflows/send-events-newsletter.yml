@@ -9,7 +9,7 @@ on:
 jobs:
 
   send_email:
-    name: Remove event from calendar
+    name: Get list of events and send them to subscribers
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
