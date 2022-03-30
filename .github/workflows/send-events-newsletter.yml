@@ -41,4 +41,5 @@ jobs:
         with:
           script: |
             const sendEmail = require('./.github/workflows/create-event-helpers/mailchimp/index.js');
+            console.log(${{ steps.events.outputs.eventsItems }});
             sendEmail('${{ steps.events.outputs.eventsItems }}');
