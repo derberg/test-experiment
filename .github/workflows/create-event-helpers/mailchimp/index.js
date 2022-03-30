@@ -23,7 +23,6 @@ module.exports = async() => {
         newCampaign = await mailchimp.campaigns.create({
             type: 'regular',
             recipients: {
-                // list_id: process.env.MAILCHIMP_RECIPIENTS
                 list_id: '6ea3acecae'
             },
             settings: {
