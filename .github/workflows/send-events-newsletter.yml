@@ -29,7 +29,6 @@ jobs:
           CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
           CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
           MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
-          MAILCHIMP_SERVER_PREFIX: ${{ secrets.MAILCHIMP_SERVER_PREFIX }}
         with:
           script: |
             const sendEmail = require('./.github/workflows/create-event-helpers/mailchimp/index.js');

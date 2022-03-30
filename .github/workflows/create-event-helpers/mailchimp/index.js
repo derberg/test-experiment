@@ -7,7 +7,7 @@ const { listEvents } = require('../calendar/index.js');
  * Listing events from Google Calendar and sending them to Newsletter subscribers. 
  * This code is not triggered separately in workflow, in 2 separate steps a GitHub actions have issues when doing code.setOutput with complex JSON in String.
  */
-module.exports = async() => {
+module.exports = async () => {
 
     const events = await listEvents();
     if (!events.length) return core.info('No events scheduled for next week so no email will be sent');
@@ -16,7 +16,7 @@ module.exports = async() => {
 
     mailchimp.setConfig({
         apiKey: process.env.MAILCHIMP_API_KEY,
-        server: process.env.MAILCHIMP_SERVER_PREFIX
+        server: 'us14'
     });
 
     try {
