@@ -1,4 +1,4 @@
-name: Schedule ad hoc Meeting
+name: Schedule Ad Hoc Meeting
 
 on:
   workflow_dispatch:
