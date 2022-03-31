@@ -59,12 +59,12 @@ module.exports = async () => {
         scheduleDate.setUTCMinutes(00);
 
 
-        await mailchimp.campaigns.schedule(newCampaign.id), {
+        await mailchimp.campaigns.schedule(newCampaign.id, {
             schedule_time: scheduleDate.toUTCString(),
             timewarp: true
-        };
+        });
     } catch (error) {
-        return core.setFailed(`Failed sending email: ${ JSON.stringify(error) }`);
+        return core.setFailed(`Failed scheduling email: ${ JSON.stringify(error) }`);
     }
 
     core.info(`New email campaign created`);
