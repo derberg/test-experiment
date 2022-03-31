@@ -11,7 +11,7 @@ module.exports = async () => {
 
     const events = await listEvents();
     if (!events.length) return core.info('No events scheduled for next week so no email will be sent');
-    core.info(`Formatted list of events: ${ JSON.stringify(events.data, null, 4) }`)
+    core.info(`Formatted list of events: ${ JSON.stringify(events, null, 4) }`)
 
     let newCampaign;
 
