@@ -2,9 +2,8 @@ name: Send email to newsletter subscribers about upcomming meetings
 
 on:
   schedule:
-    # Runs "At 23:59 on Thursday." (see https://crontab.guru)
+    # Runs "At 00:00 on Friday." (see https://crontab.guru)
     - cron: '00 00 * * 5'
-  workflow_dispatch: {}
 
 jobs:
 

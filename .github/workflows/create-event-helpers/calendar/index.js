@@ -24,6 +24,7 @@ async function addEvent(zoomUrl, startDate, startTime, issueNumber) {
     const title = process.env.MEETING_NAME;
     const suffix = process.env.MEETING_NAME_SUFFIX;
     const description = process.env.MEETING_DESC;
+    const guest = process.env.GUEST;
     const summary = suffix ? `${title} ${suffix}` : title;
 
     try {
@@ -38,19 +39,19 @@ async function addEvent(zoomUrl, startDate, startTime, issueNumber) {
 
         //helper to build meeting description
         //there is a use case that meeting has no connection over zoom available as it is pure live stream
-        const getDescription = (description, communityIssuesUrl, issueNumber, zoomUrl) => {
+        const getDescription = (description, communityIssuesUrl, issueNumber, zoomUrl, guest) => {
 
             const zoomDetails = zoomUrl && `<b>Zoom</b>: <a href="${zoomUrl}">Meeting Link</a>`;
             const agendaDetails = `<b>Agenda and more options to join the meeting</b>: <a href="${communityIssuesUrl}${issueNumber}">GitHub Issue Link.</a>`;
-
-            return `${ description }<br><br>${ zoomDetails }<br><br>${ agendaDetails }`
+            const guestDetails = guest ? `<b>Special guest<b>: ${ guest }` : '';
+            return `${ description }<br><br>${ zoomDetails }<br><br>${ agendaDetails }<br><br>${ guestDetails }`
         };
 
         await calendar.events.insert({
             calendarId: process.env.CALENDAR_ID,
             requestBody: {
                 summary,
-                description: getDescription(description, communityIssuesUrl, issueNumber, zoomUrl),
+                description: getDescription(description, communityIssuesUrl, issueNumber, zoomUrl, guest),
                 start: {
                     dateTime: `${ startDate }T${ startTime }:00:00Z`
                 },
