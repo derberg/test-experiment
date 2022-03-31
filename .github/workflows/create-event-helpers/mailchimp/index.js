@@ -20,6 +20,9 @@ module.exports = async () => {
         server: 'us14'
     });
 
+    /*
+    * First we create campaign
+    */
     try {
         newCampaign = await mailchimp.campaigns.create({
             type: 'regular',
@@ -38,14 +41,28 @@ module.exports = async () => {
         return core.setFailed(`Failed creating campaign: ${ JSON.stringify(error) }`);
     }
 
+    /*
+    * Content of the email is added separately after campaign creation
+    */
     try {
         await mailchimp.campaigns.setContent(newCampaign.id, { html: htmlContent(events) });
     } catch (error) {
         return core.setFailed(`Failed adding content to campaign: ${ JSON.stringify(error) }`);
     }
 
+    /*
+    * We schedule an email, we do not send it at midnight immediately but use schedule with `timewarp` to basically send email at the same time for anyone no matter what time zone they live in
+    */
     try {
-        await mailchimp.campaigns.send(newCampaign.id);
+        const scheduleDate = new Date(Date.now());
+        scheduleDate.setUTCHours(11);
+        scheduleDate.setUTCMinutes(00);
+
+
+        await mailchimp.campaigns.schedule(newCampaign.id), {
+            schedule_time: scheduleDate.toUTCString(),
+            timewarp: true
+        };
     } catch (error) {
         return core.setFailed(`Failed sending email: ${ JSON.stringify(error) }`);
     }
