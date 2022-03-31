@@ -21,7 +21,7 @@ title: "{{ env.MEETING_NAME }}, {{ env.FULL_DATE | date('H:mm [UTC] dddd MMMM Do
 </tr>
 <tr>
 <td>Zoom</td>
-<td>Zoom link is not available. This is a live stream event. Watch and interact through one of below mentioned platforms.</td>
+<td><a href="{{ env.ZOOM_LINK }}">Join live</a>.</td>
 </tr>
 <tr>
 <td>YouTube</td>
@@ -45,7 +45,7 @@ title: "{{ env.MEETING_NAME }}, {{ env.FULL_DATE | date('H:mm [UTC] dddd MMMM Do
 </tr>
 <tr>
 <td>Meeting Recordings</td>
-<td><a href="https://www.youtube.com/playlist?list=PLbi1gRlP7pihClJY-kXuTRRJ8n1awb0VV">YouTube Playlist</a>.</td>
+<td><a href="https://www.youtube.com/asyncapi">YouTube Playlist</a>.</td>
 </tr>
 <tr>
 <td>AsyncAPI Initiative Calendar</td>
@@ -60,6 +60,7 @@ title: "{{ env.MEETING_NAME }}, {{ env.FULL_DATE | date('H:mm [UTC] dddd MMMM Do
 <td><a href="https://www.asyncapi.com/newsletter">Subscribe to get weekly updates on upcoming meetings</a>.</td>
 </tr>
 </table>
+  
 
 ## Agenda
 
@@ -70,3 +71,5 @@ title: "{{ env.MEETING_NAME }}, {{ env.FULL_DATE | date('H:mm [UTC] dddd MMMM Do
 1. Q&A
 
 ## Notes
+
+tbd

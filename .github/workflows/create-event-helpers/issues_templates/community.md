@@ -73,7 +73,3 @@ title: "{{ env.MEETING_NAME }}, {{ env.FULL_DATE | date('H:mm [UTC] dddd MMMM Do
 ## Notes
 
 tbd
-
-## Chat
-
-tbd
