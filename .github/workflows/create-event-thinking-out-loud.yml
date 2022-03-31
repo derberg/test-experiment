@@ -27,7 +27,7 @@ jobs:
       meeting_desc: ${{ github.event.inputs.desc }}
       guest: ${{ github.event.inputs.guest }}
       host: fmvilas@gmail.com
-      issue_template_path: .github/workflows/create-event-helpers/issues_templates/spec-3-0.md
+      issue_template_path: .github/workflows/create-event-helpers/issues_templates/thinking-out-loud.md
       create_zoom: true
     secrets:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}

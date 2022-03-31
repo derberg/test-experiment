@@ -43,7 +43,7 @@ async function addEvent(zoomUrl, startDate, startTime, issueNumber) {
 
             const zoomDetails = zoomUrl && `<b>Zoom</b>: <a href="${zoomUrl}">Meeting Link</a>`;
             const agendaDetails = `<b>Agenda and more options to join the meeting</b>: <a href="${communityIssuesUrl}${issueNumber}">GitHub Issue Link.</a>`;
-            const guestDetails = guest ? `<b>Special guest<b>: ${ guest }` : '';
+            const guestDetails = guest ? `<b>Special guest</b>: ${ guest }` : '';
             return `${ description }<br><br>${ zoomDetails }<br><br>${ agendaDetails }<br><br>${ guestDetails }`
         };
 
