@@ -49,7 +49,7 @@ title: "{{ env.MEETING_NAME }}, {{ env.FULL_DATE | date('H:mm [UTC] dddd MMMM Do
 </tr>
 <tr>
 <td>Meeting Recordings</td>
-<td><a href="https://www.youtube.com/playlist?list=PLbi1gRlP7pigPBrBMaNQhUeniR1pdDMiY">YouTube Playlist</a>.</td>
+<td><a href="https://www.youtube.com/playlist?list=PLbi1gRlP7pigPxRRylHGCvpdppYLmSKfJ">YouTube Playlist</a>.</td>
 </tr>
 <tr>
 <td>AsyncAPI Initiative Calendar</td>
