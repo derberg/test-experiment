@@ -34,7 +34,7 @@ on:
         type: string
       alternative_host:
         description: 'Email address of alternative hosts of the meeting.'
-        required: true
+        required: false
         type: string
       issue_template_path:
         description: 'Path to the issue template used to create meeting GH issue.'
