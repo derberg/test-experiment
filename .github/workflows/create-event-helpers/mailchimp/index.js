@@ -60,7 +60,7 @@ module.exports = async () => {
 
 
         await mailchimp.campaigns.schedule(newCampaign.id, {
-            schedule_time: scheduleDate.toUTCString(),
+            schedule_time: scheduleDate.toISOString(),
             timewarp: true
         });
     } catch (error) {
