@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Work around permission issue #https://github.blog/2022-04-12-git-security-vulnerability-announced/
-      run: git config --global --add safe.directory /home/runner/work/${{ github.event.repository.name }}/${{ github.event.repository.name }}
+      run: git config --global --add safe.directory ${{ github.workspace }}
     - name: Checkout repo
       uses: actions/checkout@v3
     - name: Check links
