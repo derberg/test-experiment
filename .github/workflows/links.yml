@@ -4,7 +4,7 @@
 name: Check Markdown links
 
 on: 
-  pull_request_target:
+  pull_request:
     types: [synchronize, ready_for_review, opened, reopened]
 
 jobs:
