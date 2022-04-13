@@ -14,13 +14,14 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
     - name: Work around permission issue #https://github.blog/2022-04-12-git-security-vulnerability-announced/
-      run: git config --global --add safe.directory /__w/${{github.repository}}/${{github.repository}}
+      run: git config --global --add safe.directory /__w/${{ github.event.repository.name }}/${{ github.event.repository.name }}
     - name: Check links
       uses: gaurav-nelson/github-action-markdown-link-check@v1
       with:
         use-quiet-mode: 'yes'
         use-verbose-mode: 'yes'
         check-modified-files-only: 'yes' # Only modified files are checked on PRs
+        
         # A configuration file can be included, indicating the properties of the link check action
         # More information can be found here: https://github.com/tcort/markdown-link-check#config-file-format
         # Create mlc_config.json file in the root of the directory
