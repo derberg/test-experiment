@@ -19,7 +19,7 @@ jobs:
         use-quiet-mode: 'yes'
         use-verbose-mode: 'yes'
         check-modified-files-only: 'yes' # Only modified files are checked on PRs
-        
+        folder-path: ./
         # A configuration file can be included, indicating the properties of the link check action
         # More information can be found here: https://github.com/tcort/markdown-link-check#config-file-format
         # Create mlc_config.json file in the root of the directory
