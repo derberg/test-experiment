@@ -15,10 +15,13 @@ jobs:
       uses: actions/checkout@v3
     - run: |
         ls
-        echo "dua"
+        echo "===dua"
         cd ..
         ls
-        echo "lipe"
+        echo "===lipe"
+        cd ..
+        ls
+        echo "===boom"
     - name: Check links
       uses: gaurav-nelson/github-action-markdown-link-check@v1
       with:
