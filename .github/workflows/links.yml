@@ -28,7 +28,6 @@ jobs:
         cd ..
         echo "====="
         ls
-        cd ..
         echo "====="
         cd work
         ls
