@@ -19,7 +19,7 @@ jobs:
         git config --global --add safe.directory /github/workspace
         git config --global --add safe.directory /home
     - name: Check links
-      uses: gaurav-nelson/github-action-markdown-link-check@v1
+      uses: derberg/github-action-markdown-link-check@temporary-fix
       with:
         use-quiet-mode: 'yes'
         use-verbose-mode: 'yes'
