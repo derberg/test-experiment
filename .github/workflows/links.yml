@@ -14,7 +14,7 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
     - name: Work around permission issue #https://github.blog/2022-04-12-git-security-vulnerability-announced/
-      run: git config --global --add safe.directory /__w/${github.repository}/${github.repository}
+      run: git config --global --add safe.directory /__w/${{github.repository}}/${{github.repository}}
     - name: Check links
       uses: gaurav-nelson/github-action-markdown-link-check@v1
       with:
