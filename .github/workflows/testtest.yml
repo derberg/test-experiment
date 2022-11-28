@@ -3,10 +3,11 @@ name: Test default branch
 on:
   push:
     branches:
-      - ${{ github.event.repository.default_branch }}
+      - master
 
 jobs:
   test:
+    if: ${{ startsWith(fromJson('["fix:", "feat:", "fix!:", "feat!:"]'), github.event.push.commits[0].message) }}
     name: Testing Testing Testing
     runs-on: ubuntu-latest
     steps:
