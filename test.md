@@ -29,7 +29,7 @@ create test
       <td>Test broker</td>
     </tr>
     <tr>
-      <td colspan="3">
+      <td colspan="3">r
         <details>
           <summary>URL Variables</summary>
           <table>
