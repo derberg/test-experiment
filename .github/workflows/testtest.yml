@@ -11,4 +11,4 @@ jobs:
     name: Testing Testing Testing
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Wilma! I'm Home ${{github.event.push.commits[0].message}}"
+      - run: echo "Wilma! I'm Home ${{github.event.push.commits}}"
