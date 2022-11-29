@@ -2,7 +2,7 @@
 
 The Smartylighting Streetlights API allows you to remotely manage the city lights.
 
-### Check out its awesome features:
+### Check dout its awesome features:
 
 * Turn a specific streetlight on/off 🌃
 * Dim a specific streetlight 😎
