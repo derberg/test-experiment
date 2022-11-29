@@ -4,18 +4,16 @@ on:
   push:
     branches:
       - master
-env:
-  commitMessage: github.event.commits[0].message
-  
+
 jobs:
   test:
     if: |
-      startsWith(github.repository, 'asyncapi/') && 
-      (startsWith(${{commitMessage}}, 'fix:') ||
-      startsWith(${{commitMessage}}, 'fix!:') ||
-      startsWith(${{commitMessage}}, 'feat:') ||
-      startsWith(${{commitMessage}}, 'feat!:'))
+      startsWith( github.repository, 'asyncapi/' ) && 
+      (startsWith( github.event.commits[0].message , 'fix:' ) ||
+      startsWith( github.event.commits[0].message, 'fix!:' ) ||
+      startsWith( github.event.commits[0].message, 'feat:' ) ||
+      startsWith( github.event.commits[0].message, 'feat!:' ))
     name: Testing Testing Testing
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Wilma! I'm Home ${{commitMessage}}"
+      - run: echo "Wilma! I'm Home ${{github.event.commits[0].message}}"
