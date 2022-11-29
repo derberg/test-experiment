@@ -10,12 +10,12 @@ env:
 jobs:
   test:
     if: |
-      ${{ startsWith(github.repository, 'asyncapi/') && 
-      (startsWith($commitMessage, 'fix:') ||
-      startsWith($commitMessage, 'fix!:') ||
-      startsWith($commitMessage, 'feat:') ||
-      startsWith($commitMessage, 'feat!:')) }}
+      startsWith(github.repository, 'asyncapi/') && 
+      (startsWith(${{commitMessage}}, 'fix:') ||
+      startsWith(${{commitMessage}}, 'fix!:') ||
+      startsWith(${{commitMessage}}, 'feat:') ||
+      startsWith(${{commitMessage}}, 'feat!:'))
     name: Testing Testing Testing
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Wilma! I'm Home $commitMessage"
+      - run: echo "Wilma! I'm Home ${{commitMessage}}"
