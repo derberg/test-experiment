@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    #if: ${{ contains(fromJson('["fix:", "feat:", "fix!:", "feat!:"]'), github.event.push.commits[0].message) }}
+    if: ${{ startsWith(fromJson('["fix:", "feat:", "fix!:", "feat!:"]'), github.event.commits[0].message) }}
     name: Testing Testing Testing
     runs-on: ubuntu-latest
     steps:
