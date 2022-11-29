@@ -8,7 +8,7 @@ on:
 jobs:
   test:
     if: |
-      startsWith( github.repository, 'asyncapi/' ) && 
+      startsWith( github.repository, 'derberg/' ) && 
       (startsWith( github.event.commits[0].message , 'fix:' ) ||
       startsWith( github.event.commits[0].message, 'fix!:' ) ||
       startsWith( github.event.commits[0].message, 'feat:' ) ||
