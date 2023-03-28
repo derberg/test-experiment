@@ -14,13 +14,13 @@ jobs:
 
     #In case all defaults are fine for you, just add such step
     - name: Generating Markdown from my AsyncAPI document
-      uses: docker://asyncapi/github-action-for-generator:2.1.11
+      uses: docker://asyncapi/github-action-for-generator:2.1.12
       env:
         TS_NODE_TRANSPILE_ONLY: true
       
     #In case you do not want to use defaults, you for example want to use different template
     - name: Generating HTML from my AsyncAPI document
-      uses: docker://asyncapi/github-action-for-generator:2.1.11
+      uses: docker://asyncapi/github-action-for-generator:2.1.12
       env:
         TS_NODE_TRANSPILE_ONLY: true
       with:
