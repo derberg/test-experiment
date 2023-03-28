@@ -20,10 +20,10 @@ jobs:
 
     #In case all defaults are fine for you, just add such step
     - name: Generating Markdown from my AsyncAPI document
-      uses: docker://derberg/github-action-for-generator:2.1.11
+      uses: docker://asyncapi/github-action-for-generator:2.1.11
     #In case you do not want to use defaults, you for example want to use different template
     - name: Generating HTML from my AsyncAPI document
-      uses: docker://derberg/github-action-for-generator:2.1.11
+      uses: docker://asyncapi/github-action-for-generator:2.1.11
       with:
         template: '@asyncapi/html-template@0.15.4'
         filepath: docs/api/my-asyncapi.yml
