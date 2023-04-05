@@ -1,10 +1,9 @@
 name: Test
 
 on:
-  push:
-    branches:
-      - master
-
+  issue_comment:
+    types:
+      - created
 jobs:
   test:
     name: Testing Testing Testing
@@ -16,11 +15,6 @@ jobs:
         uses: ./.github/actions/slackify-markdown
         id: experiment
         with:
-          markdown: |
-            *dupa*
- 
-            - dupa
-            - dupa
-            - dupa
+          markdown: "[${{github.event.issue.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
       - name: get output
         run: echo "${{ steps.experiment.outputs.text }}"
