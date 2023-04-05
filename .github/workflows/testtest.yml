@@ -1,4 +1,4 @@
-name: Test default branch
+name: Test
 
 on:
   push:
@@ -11,4 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: experiment
-        uses: apache/airflow/.github/actions/breeze@77c272e6e8ecda0ce48917064e58ba14f6a15844
+        uses: ./.github/actions/slackify-markdown
+        id: experiment
+        with:
+          markdown: |
+            *dupa*
+ 
+            - dupa
+            - dupa
+            - dupa
+      - name: get output
+        run: echo "${{ steps.experiment.outputs.text }}"
