@@ -7,13 +7,8 @@ on:
 
 jobs:
   test:
-    if: |
-      startsWith( github.repository, 'derberg/' ) && 
-      (startsWith( github.event.commits[0].message , 'fix:' ) ||
-      startsWith( github.event.commits[0].message, 'fix!:' ) ||
-      startsWith( github.event.commits[0].message, 'feat:' ) ||
-      startsWith( github.event.commits[0].message, 'feat!:' ))
     name: Testing Testing Testing
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Wilma! I'm Home ${{github.event.commits[0].message}}"
+      - name: experiment
+        uses: apache/airflow/.github/actions/breeze@77c272e6e8ecda0ce48917064e58ba14f6a15844
