@@ -15,6 +15,7 @@ runs:
       with:
         node-version: 14
     - name: Install slackify-markdown package
+      shell: bash
       run: npm install slackify-markdown@4.3.1
     - name: Slackify
       uses: actions/github-script@v6
