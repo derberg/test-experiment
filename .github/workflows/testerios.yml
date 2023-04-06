@@ -1,0 +1,21 @@
+name: Testownica falowa
+
+on:
+  issue_comment:
+    types:
+      - created
+jobs:
+  test:
+    name: Ole Ole Ole Ola Ola
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - id: setoutput
+        run: echo "::set-output name=comment::${{github.event.comment.body}}"
+      - id: setoutputnewway
+        run: echo "comment=$target_commitish" >> $GITHUB_OUTPUT
+      - name: get output from old
+        run: echo "${{ steps.setoutput.outputs.comment }}"
+      - name: get output from new
+        run: echo "${{ steps.setoutputnewway.outputs.comment }}" 
