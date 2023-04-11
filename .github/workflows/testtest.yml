@@ -9,8 +9,6 @@ jobs:
     name: Testing Testing Testing
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
       - name: experiment
         uses: derberg/.github-asyncapi/.github/actions/slackify-markdown@bfaffbf653627c9aa23c9a59683d4530ae73f5ea
         id: experiment
