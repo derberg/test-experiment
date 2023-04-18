@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: experiment
-        uses: derberg/.github-asyncapi/.github/actions/get-node-version-from-package-lock@5b4bddbe38ccbf6b19d1152a9f2130bd0ce77164
+        uses: derberg/.github-asyncapi/.github/actions/get-node-version-from-package-lock@d3d8d7452fa3cd5c9970fbb2114e4bafa8a6dabd
         id: experiment
       - name: get output
         run: echo "${{ steps.experiment.outputs.version }}"
