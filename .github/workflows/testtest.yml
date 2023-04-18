@@ -12,9 +12,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: experiment
-        uses: derberg/.github-asyncapi/.github/actions/slackify-markdown@bfaffbf653627c9aa23c9a59683d4530ae73f5ea
+        uses: ./.github/actions/slackify-markdown
         id: experiment
-        with:
-          markdown: "[${{github.event.issue.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
       - name: get output
-        run: echo "${{ steps.experiment.outputs.text }}"
+        run: echo "${{ steps.experiment.outputs.version }}"
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "${{ steps.experiment.outputs.version }}"
+      - name: get nodeversion
+        run: node -v
