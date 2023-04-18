@@ -1,33 +1,40 @@
-name: 'Make Markdown Pretty in Slack'
-inputs:
-  markdown:
-    description: Markdown content
-    required: true
+name: 'Specify Node version basing on package-lock file version'
 outputs:
-  text:
-    description: Markdown converted to Slack
-    value: ${{ steps.slackify.outputs.text }}
+  version:
+    description: 'Node.js version number to use with actions/setup-node action'
+    value: ${{ steps.getnode.outputs.version }}
 runs:
   using: "composite"
   steps:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 14
-    - name: Install slackify-markdown package
-      shell: bash
-      run: npm install slackify-markdown@4.3.1
-    - name: Slackify
+        node-version: 16
+        cache: 'npm'
+        cache-dependency-path: '**/package-lock.json'
+    - name: Get Node version
       uses: actions/github-script@v6
-      id: slackify
+      id: getnode
       with:
         script: |
-          const slackifyMarkdown = require('slackify-markdown');
+          const packageLock = require('./package-lock.json');
 
-          try {
-              const md = `${{ inputs.markdown }}`;
-              const mrkdwn = slackifyMarkdown(md);
-              core.setOutput('text', mrkdwn);
-          } catch (error) {
-              core.setFailed(error.message);
+          const packageLockVersion = packageLock.lockfileVersion;
+          let nodeVersion;
+
+          switch (packageLockVersion) {
+            case 1:
+                nodeVersion = '14'
+                break;
+            case 2:
+                nodeVersion = '16'
+                break;
+            case 3:
+                nodeVersion = '18'
+                break;
+            default:
+                nodeVersion = '16'
+                break;
           }
+
+          core.setOutput('version', nodeVersion);
