@@ -17,9 +17,11 @@ runs:
       id: getnode
       with:
         script: |
-          core.info(`Location of the packae-lock verification script is: ${__dirname}`);
-          const packageLock = require('./package-lock.json');        
-          
+          const { resolve } = require('path');
+          const packageLockLocation = './package-lock.json';
+          core.info(`Location of the packae-lock verification script is: ${ resolve(packageLockLocation) }`)
+          const packageLock = require(packageLockLocation);
+
           const packageLockVersion = packageLock.lockfileVersion;
           let nodeVersion;
 
