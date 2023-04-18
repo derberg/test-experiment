@@ -9,6 +9,8 @@ jobs:
     name: Testing Testing Testing
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
       - name: experiment
         uses: derberg/.github-asyncapi/.github/actions/get-node-version-from-package-lock@d3d8d7452fa3cd5c9970fbb2114e4bafa8a6dabd
         id: experiment
