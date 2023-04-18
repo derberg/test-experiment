@@ -9,10 +9,8 @@ jobs:
     name: Testing Testing Testing
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
       - name: experiment
-        uses: ./.github/actions/slackify-markdown
+        uses: derberg/.github-asyncapi/.github/actions/get-node-version-from-package-lock@5b4bddbe38ccbf6b19d1152a9f2130bd0ce77164
         id: experiment
       - name: get output
         run: echo "${{ steps.experiment.outputs.version }}"
