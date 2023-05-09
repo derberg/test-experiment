@@ -13,5 +13,8 @@ jobs:
         uses: actions/checkout@v3
       - name: experiment
         uses: ./.github/actions/slackify-markdown
+        id: dupa
         with:
           markdown: "[${{github.event.issue.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
+      - name: get output from new
+        run: echo "${{ steps.dupa.outputs.text }}" 
