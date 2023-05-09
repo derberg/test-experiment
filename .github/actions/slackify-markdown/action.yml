@@ -28,13 +28,13 @@ runs:
       uses: actions/github-script@v6
       id: slackify
       env:
-        makrdown-input: ${{ inputs.markdown }}
+        MARKDOWN: ${{ inputs.markdown }}
       with:
         script: |
           const slackifyMarkdown = require('slackify-markdown');
 
           try {
-              const md = process.env.makrdown-input;
+              const md = process.env.MARKDOWN;
               const splitLines = str => str.split(/\r?\n/);
               let stringmd = ""
               for (val of splitLines(md)){
