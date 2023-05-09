@@ -12,13 +12,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: experiment
-        uses: derberg/.github-asyncapi/.github/actions/get-node-version-from-package-lock@d3d8d7452fa3cd5c9970fbb2114e4bafa8a6dabd
-        id: experiment
-      - name: get output
-        run: echo "${{ steps.experiment.outputs.version }}"
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: ./.github/actions/slackify-markdown
         with:
-          node-version: "${{ steps.experiment.outputs.version }}"
-      - name: get nodeversion
-        run: node -v
+          markdown: "[${{github.event.issue.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
