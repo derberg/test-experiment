@@ -1,8 +1,17 @@
-name: 'Specify Node version basing on package-lock file version'
+# Composite action that can be used in other actions or workflows.
+# It does not run on its own.
+# Replacement for LoveToKnow/slackify-markdown-action.
+
+name: 'Make Markdown Pretty in Slack'
+description: Action used in multiple workflows to handle convertion from markdown to slack--specific-text
+inputs:
+  markdown:
+    description: Markdown content
+    required: true
 outputs:
-  version:
-    description: 'Node.js version number to use with actions/setup-node action'
-    value: ${{ steps.getnode.outputs.version }}
+  text:
+    description: Slack Markdown
+    value: ${{ steps.slackify.outputs.text }}
 runs:
   using: "composite"
   steps:
@@ -12,32 +21,27 @@ runs:
         node-version: 16
         cache: 'npm'
         cache-dependency-path: '**/package-lock.json'
-    - name: Get Node version
+    - name: Install slackify-markdown package
+      shell: bash
+      run: npm install slackify-markdown@4.3.1
+    - name: Slackify
       uses: actions/github-script@v6
-      id: getnode
+      id: slackify
+      env:
+        makrdown-input: ${{ inputs.markdown }}
       with:
         script: |
-          const { resolve } = require('path');
-          const packageLockLocation = './package-lock.json';
-          core.info(`Location of the packae-lock verification script is: ${ resolve(packageLockLocation) }`)
-          const packageLock = require(packageLockLocation);
+          const slackifyMarkdown = require('slackify-markdown');
 
-          const packageLockVersion = packageLock.lockfileVersion;
-          let nodeVersion;
-
-          switch (packageLockVersion) {
-            case 1:
-                nodeVersion = '14'
-                break;
-            case 2:
-                nodeVersion = '16'
-                break;
-            case 3:
-                nodeVersion = '18'
-                break;
-            default:
-                nodeVersion = '16'
-                break;
+          try {
+              const md = process.env('makrdown-input');
+              const splitLines = str => str.split(/\r?\n/);
+              let stringmd = ""
+              for (val of splitLines(md)){
+                stringmd += val + "\n \ "
+              }
+              const mrkdwn = slackifyMarkdown(stringmd);
+              core.setOutput('text', mrkdwn);
+          } catch (error) {
+              core.setFailed(error.message);
           }
-
-          core.setOutput('version', nodeVersion);
