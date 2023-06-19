@@ -1,6 +1,6 @@
 asyncapi: '2.0.0'
 info:
-  title: Streetlights API
+  title: Streetlights API June 19
   version: '1.0.0'
   description: |
     The Smartylighting Streetlights API allows you
