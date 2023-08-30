@@ -22,7 +22,7 @@ jobs:
       with:
         template: '@asyncapi/html-template@0.15.4'
         filepath: docs/api/my-asyncapi.yml
-        parameters: baseHref=/test-experiment/ sidebarOrganization=byTags #space separated list of key/values
+        parameters: pdf=true baseHref=/test-experiment/ sidebarOrganization=byTags #space separated list of key/values
         output: generated-html
 
     - name: Checking if stuff are available outside container
