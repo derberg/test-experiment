@@ -12,17 +12,17 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v4
     - name: validate
-      uses: Shurtu-gal/github-action-for-generator/#790b3c43d95cec6c2d8838466cc1b58d401a18c3
+      uses: Shurtu-gal/github-action-for-generator@790b3c43d95cec6c2d8838466cc1b58d401a18c3
       with:
         command: validate
     #In case all defaults are fine for you, just add such step
     - name: Generating Markdown from my AsyncAPI document
-      uses: Shurtu-gal/github-action-for-generator/#790b3c43d95cec6c2d8838466cc1b58d401a18c3
+      uses: Shurtu-gal/github-action-for-generator@790b3c43d95cec6c2d8838466cc1b58d401a18c3
       #uses: docker://asyncapi/github-action-for-generator:2.1.12
       
     #In case you do not want to use defaults, you for example want to use different template
     - name: Generating HTML from my AsyncAPI document
-      uses: Shurtu-gal/github-action-for-generator/#790b3c43d95cec6c2d8838466cc1b58d401a18c3
+      uses: Shurtu-gal/github-action-for-generator@790b3c43d95cec6c2d8838466cc1b58d401a18c3
       with:
         template: '@asyncapi/html-template@0.15.4'
         filepath: docs/api/my-asyncapi.yml
