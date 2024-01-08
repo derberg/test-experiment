@@ -26,7 +26,7 @@ jobs:
       with:
         template: '@asyncapi/html-template@0.15.4'
         filepath: docs/api/my-asyncapi.yml
-        parameters: -p pdf=true baseHref=/test-experiment/ sidebarOrganization=byTags
+        parameters: --force-write -p pdf=true baseHref=/test-experiment/ sidebarOrganization=byTags
         output: generated-html
 
     - name: Checking if stuff are available outside container
